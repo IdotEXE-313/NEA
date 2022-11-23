@@ -5,8 +5,8 @@ const cors = require("cors");
 const MySQLStore = require("express-mysql-session")(session);
 const config = require("../config.json");
 
-//Controllers
-const registerController = require("../controllers/authentication/registerController");
+//Routes
+const registerRoute = require("../routes/authentication/registerRoute");
 
 app.use(express.urlencoded({extended: true}));
 app.use(cors({origin: 'http://localhost:3000'}));
@@ -36,7 +36,7 @@ app.use(session({
     }
 }))
 
-app.use("/register", registerController);
+app.use("/register/", registerRoute);
 
 
 

@@ -4,7 +4,7 @@ const config = require("../config.json")
 const connection = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    database: 'revisionApp',
+    database: 'revisionapp',
     password: config["PASSWORD"]
 });
 

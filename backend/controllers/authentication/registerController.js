@@ -1,6 +1,7 @@
+const express = require("express");
 const db = require("../../database/connection");
 
-module.registerUser = async(req, res) => {
+exports.registerUser = async(req, res) => {
     const {username, password} = req.body;
 
     try{
@@ -13,5 +14,4 @@ module.registerUser = async(req, res) => {
                 break;
         }
     }
-
 }
