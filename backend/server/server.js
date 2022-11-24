@@ -32,7 +32,7 @@ app.use(session({
     cookie: {
         sameSite: "strict",
         secure: false,
-        maxAge: 86400000
+        maxAge: 86400000 //24 hours in milliseconds. Session expires after 24 hours
     }
 }))
 

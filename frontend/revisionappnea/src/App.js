@@ -1,11 +1,16 @@
+import React from "react";
+import{Routes, Route} from "react-router-dom";
+import Register from "./register/register";
 
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <div>
-    
-    </div>
+    <>
+      <Routes>
+        <Route path="/register" element={<Register />}/>
+      </Routes>
+    </>
   );
 }
 
