@@ -1,11 +1,11 @@
 const mysql = require("mysql2");
-const config = require("../config.json")
+const dotenv = require("dotenv").config();
 
 const connection = mysql.createPool({
     host: 'localhost',
     user: 'root',
     database: 'revisionapp',
-    password: config["PASSWORD"]
+    password: dotenv.PASSWORD
 });
 
 module.exports = connection;

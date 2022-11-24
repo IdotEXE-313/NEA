@@ -3,11 +3,10 @@ const app = express();
 const session = require("express-session");
 const cors = require("cors");
 const MySQLStore = require("express-mysql-session")(session);
-const config = require("../config.json");
+const env = require("dotenv").config({path:'../.env'});
 
 //Routes
 const registerRoute = require("../routes/authentication/registerRoute");
-const googleMapsRoute = require("../routes/api/googleMapsRoute");
 
 app.use(express.urlencoded({extended: true}));
 app.use(cors({origin: 'http://localhost:3000'}));
@@ -18,15 +17,15 @@ const connectOptions = {
     user: 'root',
     port: 3306,
     database: 'revisionapp',
-    password: config["PASSWORD"]
-};
+    password: process.env.PASSWORD
+}
 
 const sessionStore = new MySQLStore(connectOptions);
 
 
 //Config options for session cookie
 app.use(session({
-    secret: config["SECRET"],
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
     store: sessionStore,
@@ -38,9 +37,6 @@ app.use(session({
 }))
 
 app.use("/", registerRoute);
-app.use("/", googleMapsRoute);
-
-
 
 
 app.listen(3001, () => console.log("Server is running"));
