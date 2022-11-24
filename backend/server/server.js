@@ -7,6 +7,7 @@ const config = require("../config.json");
 
 //Routes
 const registerRoute = require("../routes/authentication/registerRoute");
+const googleMapsRoute = require("../routes/api/googleMapsRoute");
 
 app.use(express.urlencoded({extended: true}));
 app.use(cors({origin: 'http://localhost:3000'}));
@@ -36,7 +37,8 @@ app.use(session({
     }
 }))
 
-app.use("/register/", registerRoute);
+app.use("/", registerRoute);
+app.use("/", googleMapsRoute);
 
 
 
