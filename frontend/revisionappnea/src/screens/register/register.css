@@ -1,0 +1,13 @@
+.form-styling{
+    background-color:  #A020F0;
+    height: 100vh;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.submit-form-button{
+    background-color: #A020F0;
+    width: 100%;
+}
