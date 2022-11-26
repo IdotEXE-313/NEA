@@ -9,6 +9,7 @@ export const logout = async () => {
     }).then((res, err) => {
         if(err) throw new Error("Couldn't Logout")
         else{
+            localStorage.clear();
             window.location.reload(false);
         }
     })
