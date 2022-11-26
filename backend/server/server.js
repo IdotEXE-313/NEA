@@ -3,7 +3,7 @@ const app = express();
 const session = require("express-session");
 const cors = require("cors");
 const MySQLStore = require("express-mysql-session")(session);
-const env = require("dotenv").config({path:'../.env'});
+require("dotenv").config();
 
 //Routes
 const registerRoute = require("../routes/authentication/registerRoute");
