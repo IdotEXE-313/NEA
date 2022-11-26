@@ -7,6 +7,7 @@ require("dotenv").config();
 
 //Routes
 const registerRoute = require("../routes/authentication/registerRoute");
+const schoolsRoute = require("../routes/fetchData/getSchools");
 
 app.use(express.urlencoded({extended: true}));
 app.use(cors({origin: 'http://localhost:3000'}));
@@ -37,6 +38,7 @@ app.use(session({
 }))
 
 app.use("/", registerRoute);
+app.use("/", schoolsRoute);
 
 
 app.listen(3001, () => console.log("Server is running"));

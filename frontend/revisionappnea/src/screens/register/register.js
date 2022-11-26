@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -11,6 +11,15 @@ const Register = () => {
     const[username, setUsername] = useState("");
     const[password, setPassword] = useState("");
     const[school, setSchool] = useState("");
+
+
+    useEffect(() => {
+        const getSchoolMatches = async () => {
+            const response = await axios.post("http://localhost:3001/schools", {schoolName: school, withCredentials: true});
+            console.log(response);
+        }
+        getSchoolMatches();
+    }, [school]);
 
     const register = async (event) => {
         event.preventDefault();
