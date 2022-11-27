@@ -11,12 +11,15 @@ const Register = () => {
     const[username, setUsername] = useState("");
     const[password, setPassword] = useState("");
     const[school, setSchool] = useState("");
+    const[data, setData] = useState([]);
 
 
     useEffect(() => {
         const getSchoolMatches = async () => {
             const response = await axios.post("http://localhost:3001/schools", {schoolName: school, withCredentials: true});
-            console.log(response.data.schools[0]);
+            if(response.data.schools[0].length <= 20) {
+                setData(response.data.schools[0]);
+            }
         }
         getSchoolMatches();
     }, [school]);
@@ -46,6 +49,13 @@ const Register = () => {
                 </Form.Group>
                 <Form.Group className="mb-3" controlID="formBasicSchool">
                     <Form.Control type="search" placeholder="School Name" onChange={(e) => setSchool(e.target.value)}/>
+                    <div className='mb-3'>
+                        {data.map((data) => {
+                            return( <a href="#" className='school-button' key={data.URN}>
+                                {data.EstablishmentName}
+                            </a>)
+                        })}
+                    </div>
                 </Form.Group>
                 <Button variant="primary" type="submit" className="submit-form-button">Register</Button>
                 </Form>
