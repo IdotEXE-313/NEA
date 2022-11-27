@@ -16,7 +16,7 @@ const Register = () => {
     useEffect(() => {
         const getSchoolMatches = async () => {
             const response = await axios.post("http://localhost:3001/schools", {schoolName: school, withCredentials: true});
-            console.log(response);
+            console.log(response.data.schools[0]);
         }
         getSchoolMatches();
     }, [school]);

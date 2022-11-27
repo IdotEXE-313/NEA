@@ -10,6 +10,7 @@ const registerRoute = require("../routes/authentication/registerRoute");
 const schoolsRoute = require("../routes/fetchData/getSchools");
 
 app.use(express.urlencoded({extended: true}));
+app.use(express.json());
 app.use(cors({origin: 'http://localhost:3000'}));
 
 //Config options for connecting to database
