@@ -8,6 +8,7 @@ require("dotenv").config();
 //Routes
 const registerRoute = require("../routes/authentication/registerRoute");
 const schoolsRoute = require("../routes/fetchData/getSchools");
+const loginRoute = require("../routes/authentication/loginRoute");
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -40,6 +41,7 @@ app.use(session({
 
 app.use("/", registerRoute);
 app.use("/", schoolsRoute);
+app.use("/", loginRoute);
 
 
 app.listen(3001, () => console.log("Server is running"));

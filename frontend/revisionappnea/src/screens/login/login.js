@@ -12,6 +12,10 @@ const Login = () => {
     const[password, setPassword] = useState("");
     const navigate = useNavigate();
 
+    const errHandle = (err) => {
+
+    }
+
     const login = async (event) => {
         event.preventDefault(); 
 
@@ -19,7 +23,11 @@ const Login = () => {
             username: username,
             password: password,
             withCredentials: true
-        });
+        }).then(() => {
+            navigate("/home")
+        }).catch((err) => {
+            errHandle(err);
+        })
     }
 
     return(

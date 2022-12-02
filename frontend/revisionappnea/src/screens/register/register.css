@@ -18,9 +18,14 @@
     display:block;
     margin: 1em 0;
     padding: 0.5em;
-    text-decoration: none;
+    border: none;
+    width: 100%;
 }
 
 .school-button:hover{
     color: white;
+}
+
+.selected{
+    display:none;
 }

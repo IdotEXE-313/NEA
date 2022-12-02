@@ -5,8 +5,9 @@ exports.authenticateUser = async(req, res) => {
 
     const findUser = await db.query("select username from users where username=? and password=?", [username, password]);
     if(findUser){
-        res.send({auth: true});
+        console.log(req.session);
         req.session.isAuth = true;
+        res.send({auth: true});
         return;
     }
     res.send({auth:false});

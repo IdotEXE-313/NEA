@@ -5,21 +5,30 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import './register.css';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
 
     const[username, setUsername] = useState("");
     const[password, setPassword] = useState("");
     const[school, setSchool] = useState("");
+    const[selectedSchool, setSelectedschool] = useState("");
     const[data, setData] = useState([]);
+
+    const navigate = useNavigate();
+
+    const errHandle = (err) => {
+
+    }
 
 
     useEffect(() => {
         const getSchoolMatches = async () => {
             const response = await axios.post("http://localhost:3001/schools", {schoolName: school, withCredentials: true});
-            if(response.data.schools[0].length <= 20) {
+            if(response.data.schools[0].length <= 5) { //Setting a limit to the number received before rendering to avoid overflow on the page and reduce rendering time
                 setData(response.data.schools[0]);
             }
+            
         }
         getSchoolMatches();
     }, [school]);
@@ -30,8 +39,15 @@ const Register = () => {
         await axios.post("http://localhost:3001/register", {
             username: username,
             password: password,
+            school: selectedSchool,
             withCredentials: true
-        });
+        }).then(() => {
+            navigate("/login");
+        }).catch((err) => {
+            errHandle(err);
+        })
+
+
     }
 
     return(
@@ -51,7 +67,7 @@ const Register = () => {
                     <Form.Control type="search" placeholder="School Name" onChange={(e) => setSchool(e.target.value)}/>
                     <div className='mb-3'>
                         {data.map((data) => {
-                            return( <a href="#" className='school-button' key={data.URN}>
+                            return( <a href="#" className='school-button' onClick={() => setSelectedschool(data.URN)} key={data.URN}>
                                 {data.EstablishmentName}
                             </a>)
                         })}
