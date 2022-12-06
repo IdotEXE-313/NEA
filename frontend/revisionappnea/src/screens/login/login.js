@@ -23,7 +23,7 @@ const Login = () => {
             username: username,
             password: password,
             withCredentials: true
-        }).then(() => {
+        }).then((res) => {
             navigate("/home")
         }).catch((err) => {
             errHandle(err);
