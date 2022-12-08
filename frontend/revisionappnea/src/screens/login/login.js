@@ -24,7 +24,9 @@ const Login = () => {
             password: password,
             withCredentials: true
         }).then((res) => {
-            navigate("/home")
+            if(res.data.isLoggedIn){
+                navigate("/home");
+            }
         }).catch((err) => {
             errHandle(err);
         })
