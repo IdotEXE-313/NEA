@@ -7,7 +7,7 @@ exports.authenticateUser = async(req, res) => {
         .then((response) => {
             if(response[0][0].Username === username && response[0][0].Password === password){
                 req.session.isAuth = true;
-                res.send({isLoggedIn: true});
+                res.send({isLoggedIn: true, username: username});
             }
         })
         .catch((err) => {

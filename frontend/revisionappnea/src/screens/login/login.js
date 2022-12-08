@@ -25,6 +25,7 @@ const Login = () => {
             withCredentials: true
         }).then((res) => {
             if(res.data.isLoggedIn){
+                localStorage.setItem("Username", res.data.username);
                 navigate("/home");
             }
         }).catch((err) => {

@@ -12,13 +12,9 @@ const PrivateRoutes = () =>{
         const getData = async () => {
             const response = await axios.get("http://localhost:3001/auth", {withCredentials: true});
             setRes(response.data.auth);
-            console.log(res);
         }
         getData();
     },[])
-
-    console.log(res);
-
 
     return(
          res ? <Outlet /> : <Navigate to="/login" />

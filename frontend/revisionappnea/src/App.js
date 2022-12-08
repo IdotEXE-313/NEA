@@ -4,6 +4,7 @@ import Register from "./screens/register/register";
 import Login from "./screens/login/login";
 import PrivateRoutes from "./utils/privateRoutes/privateroutes";
 import Home from "./screens/home/home";
+import AddSubject from "./screens/addSubject/addSubject";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route element={<PrivateRoutes />}>
           <Route path="/home" element={<Home />}/>
+          <Route path="/add-subject" element={<AddSubject />}/>
         </Route>
         <Route path="/register" element={<Register />}/>
         <Route path="/login" element={<Login />}/>
