@@ -1,0 +1,11 @@
+.subjects-container{
+    margin: 0;
+    padding:0;
+    
+}
+.subject-button{
+    margin: 0.5em 0.5em;
+    width: 10em;
+    height: 5em;
+}
+

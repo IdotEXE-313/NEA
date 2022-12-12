@@ -11,7 +11,7 @@ const NavigationBar = () =>{
 
     return(
         <Navbar className="p-3" expand="lg" bg="dark" variant="dark">
-            <Navbar.Brand href="/profile">Home</Navbar.Brand>
+            <Navbar.Brand href="/home">Home</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="ms-auto">

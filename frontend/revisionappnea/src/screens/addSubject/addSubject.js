@@ -3,6 +3,7 @@ import NavigationBar from "../../components/navigation/navigationbar";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Button from "react-bootstrap/esm/Button";
+import './addSubject.css';
 
 const AddSubject = () => {
 
@@ -26,14 +27,14 @@ const AddSubject = () => {
     return(
         <>
             <NavigationBar />
-            <div className="mb-3">
-                {subjects.map((subject) => {
-                    return(
-                        <Button variant="primary" key={subject.SubjectID} >
-                            {subject.SubjectName}
-                        </Button>
-                    )
-                })}
+            <div className="subjects-container">
+                    {subjects.map((subject) => {
+                        return(
+                            <Button variant="primary" className="subject-button" key={subject.SubjectID} >
+                                {subject.SubjectName}
+                            </Button>
+                        )
+                    })}
             </div>
 
         </>
