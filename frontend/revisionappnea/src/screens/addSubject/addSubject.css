@@ -9,3 +9,28 @@
     height: 5em;
 }
 
+.select-button{
+    width:50%;
+    margin: 0 0.5em;
+}
+
+.confirm-card{
+    padding: 2em;
+}
+
+.buttons-container{
+    display:flex;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    margin-top: 1em;
+}
+
+.info-container{
+    text-align:center;
+}
+
+.info-text{
+    font-weight:500;
+}
+
+
