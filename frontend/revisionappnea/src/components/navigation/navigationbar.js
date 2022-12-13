@@ -2,7 +2,6 @@ import React from "react";
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import { logout } from "../../utils/logout/logout";
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useNavigate } from "react-router-dom";
 
 const NavigationBar = () =>{
