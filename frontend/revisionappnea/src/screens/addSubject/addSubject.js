@@ -20,6 +20,15 @@ const AddSubject = () => {
     }
     const handleClose = () => setOpen(false);
 
+    const addSubject = async() => {
+        handleClose();
+        await axios.post("http://localhost:3001/insert-subject", {
+            withCredentials: true,
+            subjectName: subject
+        });
+
+    }
+
     useEffect(() => {
         const fetchSubjects = async () => {
             await axios.get("http://localhost:3001/get-subjects", {withCredentials: true})
@@ -57,7 +66,7 @@ const AddSubject = () => {
                         Add {subject} To Your Subjects?
                     </Card.Title>
                     <div className="buttons-container">
-                        <Button className="select-button" variant="info">Yes</Button>
+                        <Button className="select-button" variant="info" onClick={addSubject}>Yes</Button>
                         <Button className="select-button" variant="info" onClick={handleClose}>No</Button>
                     </div>
                 </Card>

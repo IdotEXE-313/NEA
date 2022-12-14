@@ -14,6 +14,7 @@ const NavigationBar = () =>{
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="ms-auto">
+                    <Nav.Link onClick={() => navigate("/subjects")}>Your Subjects</Nav.Link>
                     <Nav.Link onClick={() => navigate("/add-subject")}>Add Subject</Nav.Link>
                     <Nav.Link onClick={logout}>Logout</Nav.Link>
                 </Nav>
