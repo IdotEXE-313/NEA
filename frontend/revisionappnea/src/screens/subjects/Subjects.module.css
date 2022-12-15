@@ -1,10 +1,10 @@
-.subjects-container{
+.subjectContainer{
     text-align: center;
     display:flex;
     width: 100%;
 }
 
-.subject-card{
+.subjectCard{
     width: 18rem;
 }
 

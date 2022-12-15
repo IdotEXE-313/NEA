@@ -3,7 +3,7 @@ import NavigationBar from "../../components/navigation/navigationbar";
 import Card from 'react-bootstrap/Card';
 import Button from "react-bootstrap/esm/Button";
 import axios from "axios";
-import './Subjects.css';
+import styles from './Subjects.module.css';
 
 const Subjects = () => {
 
@@ -25,14 +25,14 @@ const Subjects = () => {
     return(
         <>
             <NavigationBar />
-            <div className="title">
+            <div className={styles.title}>
                 <h1>Your Subjects</h1>
-                <p className="info">Use this page to access your decks for each subject</p>
+                <p className={styles.info}>Use this page to access your decks for each subject</p>
             </div>  
-            <div className="subjects-container">
+            <div className={styles.subjectContainer}>
                 {subjects.map((subject) => {
                     return(
-                        <Card className="subject-card">
+                        <Card className={styles.subjectCard}>
                             <Card.Body>
                                 <Card.Title>{subject.SubjectName}</Card.Title>
                             </Card.Body>
