@@ -14,6 +14,7 @@ const logoutRoute = require("../routes/authentication/logoutRoute");
 const authRoute = require("../routes/authentication/authRoute");
 const subjectsRoute = require("../routes/fetchData/getSubjects");
 const addSubjectsRoute = require("../routes/insertData/addSubjectRoute");
+const getSubjectsTakenRoute = require("../routes/fetchData/getSubjectsTaken");
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -48,6 +49,7 @@ app.use("/", logoutRoute);
 app.use("/", authRoute);
 app.use("/", subjectsRoute);
 app.use("/", addSubjectsRoute);
+app.use("/", getSubjectsTakenRoute);
 
 
 app.listen(3001, () => console.log("Server is running"));

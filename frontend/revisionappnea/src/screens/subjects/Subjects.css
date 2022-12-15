@@ -1,0 +1,18 @@
+.subjects-container{
+    text-align: center;
+    display:flex;
+    width: 100%;
+}
+
+.subject-card{
+    width: 18rem;
+}
+
+.title{
+    text-align: center;
+}
+
+.info{
+    font-weight: 500;
+    font-size: 20px;
+}

@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const PrivateRoutes = () =>{
 
-    let[res, setRes] = useState(true);
+    const[res, setRes] = useState(true);
 
     useEffect(() => {
         const getData = async () => {
