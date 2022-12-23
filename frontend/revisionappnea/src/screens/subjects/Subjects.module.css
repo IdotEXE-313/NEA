@@ -1,7 +1,7 @@
 .subjectContainer{
     text-align: center;
     display:flex;
-    width: 100%;
+    width: auto;
 }
 
 .subjectCard{

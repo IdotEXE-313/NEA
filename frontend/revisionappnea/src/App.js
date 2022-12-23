@@ -17,6 +17,7 @@ function App() {
           <Route path="/home" element={<Home />}/>
           <Route path="/add-subject" element={<AddSubject />}/>
           <Route path="/subjects" element={<Subjects />} />
+            {/* <Route path="/subjects/:folderid" element={} */}
         </Route>
         <Route path="/register" element={<Register />}/>
         <Route path="/login" element={<Login />}/>

@@ -14,7 +14,7 @@ exports.addSubject = async(req, res) => {
     }
 
     const addSubject = async (subjectID) => {
-        await db.query("INSERT INTO Subjects (SubjectID, UserID) VALUES (?, ?)", [subjectID, req.session.userID])
+        await db.query("INSERT INTO Folders (FolderID, UserID, SubjectID) VALUES (?, ?, ?)", [Date.now() + Math.random() ,req.session.userID, subjectID])
             .catch((err) => {
                 console.log(err);
             })
