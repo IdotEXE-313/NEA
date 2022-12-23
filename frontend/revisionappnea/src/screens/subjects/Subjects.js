@@ -4,7 +4,6 @@ import Card from 'react-bootstrap/Card';
 import Button from "react-bootstrap/esm/Button";
 import axios from "axios";
 import styles from './Subjects.module.css';
-import { useNavigate } from "react-router-dom";
 
 const Subjects = () => {
 
@@ -27,8 +26,7 @@ const Subjects = () => {
         <>
             <NavigationBar />
             <div className={styles.title}>
-                <h1>Your Subjects</h1>
-                <p className={styles.info}>Use this page to access your decks for each subject</p>
+                <h1>Your Subject Folders</h1>
             </div>  
             <div className={styles.subjectContainer}>
                 {subjects.map((subject) => {
