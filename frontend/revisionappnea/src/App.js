@@ -6,6 +6,7 @@ import PrivateRoutes from "./utils/privateRoutes/privateroutes";
 import Home from "./screens/home/home";
 import AddSubject from "./screens/addSubject/addSubject";
 import Subjects from "./screens/subjects/Subjects";
+import SubjectDecks from "./screens/subjectDecks/SubjectDecks";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -17,7 +18,7 @@ function App() {
           <Route path="/home" element={<Home />}/>
           <Route path="/add-subject" element={<AddSubject />}/>
           <Route path="/subjects" element={<Subjects />} />
-            {/* <Route path="/subjects/:folderid" element={} */}
+            <Route path="/subjects/:folderid" element={<SubjectDecks />} />
         </Route>
         <Route path="/register" element={<Register />}/>
         <Route path="/login" element={<Login />}/>

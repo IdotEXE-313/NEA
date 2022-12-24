@@ -4,13 +4,13 @@ import Nav from 'react-bootstrap/Nav';
 import { logout } from "../../utils/logout/logout";
 import { useNavigate } from "react-router-dom";
 
-const NavigationBar = () =>{
+const NavigationBar = () => {
 
     const navigate = useNavigate();
 
     return(
         <Navbar className="p-3" expand="lg" bg="dark" variant="dark">
-            <Navbar.Brand href="/home">Home</Navbar.Brand>
+            <Nav.Link onClick={() => navigate("/home")}><Navbar.Brand>Home</Navbar.Brand></Nav.Link>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="ms-auto">

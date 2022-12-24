@@ -4,10 +4,12 @@ import Card from 'react-bootstrap/Card';
 import Button from "react-bootstrap/esm/Button";
 import axios from "axios";
 import styles from './Subjects.module.css';
+import { useNavigate } from "react-router-dom";
 
 const Subjects = () => {
 
     const[subjects, setSubjects] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getSubjectsTaken = async () => {
@@ -35,7 +37,7 @@ const Subjects = () => {
                             <Card.Body>
                                 <Card.Title>{subject.SubjectName}</Card.Title>
                             </Card.Body>
-                            <Button>Decks</Button>
+                            <Button onClick={(() => navigate(`/subjects/${subject.FolderID}`))}>Decks</Button>
                         </Card>
                     )
                 })}

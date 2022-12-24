@@ -1,0 +1,29 @@
+.addDeck{
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.card{
+    width: 18rem;
+    text-align: center;
+    padding: 0.5rem;
+}
+
+.card > * {
+    margin: 0.5em;
+}
+
+.closeButton{
+    margin: 0;
+    padding: 0;
+}
+
+.closeButtonDiv{
+    display:flex;
+    justify-content: flex-end;
+}
+
+.visibleButtons{
+    display: inline;
+}
