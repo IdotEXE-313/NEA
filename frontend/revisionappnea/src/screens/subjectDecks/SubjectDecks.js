@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavigationBar from "../../components/navigation/navigationbar";
 import { useParams } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
@@ -16,8 +16,23 @@ const SubjectDecks = () => {
     const[addDeck, setAddDeck] = useState(false);
     const[deckName, setDeckName] = useState("");
     const[visibility, setVisibility] = useState("Public");
+    const[deckData, setDeckData] = useState([]);
+
+    useEffect(() => {
+        const getDeckData = async () => {
+            await axios.post("http://localhost:3001/get-decks", {withCredentials: true, folderID: folderID.folderid})
+                .then((response) => {
+                    setDeckData(response.data.deckData[0]);
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        }
+        getDeckData();
+    }, [])  
 
     const handleSubmit = async () => {
+        setAddDeck(false);
         await axios.post("http://localhost:3001/add-deck", {
             withCredentials: true,
             folderID: folderID.folderid,
@@ -42,7 +57,6 @@ const SubjectDecks = () => {
                     <Form.Group>
                         <Form.Control type="text" onChange={(e) => setDeckName(e.target.value)} placeholder="Deck Name"></Form.Control>
                     </Form.Group>
-
                         {["Public", "Internal", "Private"].map((visible) => {
                             return(
                                 <div className={styles.visibleButtons}>
@@ -50,10 +64,19 @@ const SubjectDecks = () => {
                                 </div>
                             )
                         })}
-                    
                     <Button onClick={handleSubmit}>Add Deck</Button>
                 </Card>
             </Backdrop>
+            {deckData.map((deckName) => {
+                return (
+                    <div className={styles.subjectContainer}>
+                        <Card key={deckName.DeckID} className={styles.subjectCard}>
+                            <Card.Title>{deckName.DeckName}</Card.Title>
+                            <Button>Go to Deck</Button>
+                        </Card>
+                    </div>
+                )
+            })}
 
         </>
     )
