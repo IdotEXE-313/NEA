@@ -32,6 +32,7 @@ const SubjectDecks = () => {
     }, [])  
 
     const handleSubmit = async () => {
+        window.location.reload(false);
         setAddDeck(false);
         await axios.post("http://localhost:3001/add-deck", {
             withCredentials: true,
@@ -48,7 +49,7 @@ const SubjectDecks = () => {
                 <h1>Decks</h1>
                 <Button onClick = {() => setAddDeck(true)}>Add Deck</Button>
             </div>
-            <Backdrop open={addDeck}>
+            <Backdrop open={addDeck} sx={{zIndex: 1}}>
                 <Card className={styles.card}>
                     <div className={styles.closeButtonDiv}>
                         <CloseButton onClick={() => setAddDeck(false)} className={styles.closeButton} />
@@ -67,16 +68,18 @@ const SubjectDecks = () => {
                     <Button onClick={handleSubmit}>Add Deck</Button>
                 </Card>
             </Backdrop>
-            {deckData.map((deckName) => {
-                return (
-                    <div className={styles.subjectContainer}>
-                        <Card key={deckName.DeckID} className={styles.subjectCard}>
-                            <Card.Title>{deckName.DeckName}</Card.Title>
-                            <Button>Go to Deck</Button>
+            <div className={styles.subjectContainer}>
+                {deckData.map((deckName) => {
+                    return (
+                        <Card key={deckName.DeckID} className={styles.subjectCard}> 
+                            <Card.Body>
+                                <Card.Title>{deckName.DeckName}</Card.Title>
+                            </Card.Body>
+                            <Button>Go To Deck</Button>
                         </Card>
-                    </div>
-                )
-            })}
+                    )
+                })}
+            </div>
 
         </>
     )
