@@ -8,12 +8,23 @@ import { useState } from "react";
 import { Backdrop } from "@mui/material";
 import Form from 'react-bootstrap/Form';
 import CloseButton from "react-bootstrap/esm/CloseButton";
+import axios from "axios";
 
 const SubjectDecks = () => {
 
-    const {folderID} = useParams();
+    const folderID = useParams();
     const[addDeck, setAddDeck] = useState(false);
     const[deckName, setDeckName] = useState("");
+    const[visibility, setVisibility] = useState("Public");
+
+    const handleSubmit = async () => {
+        await axios.post("http://localhost:3001/add-deck", {
+            withCredentials: true,
+            folderID: folderID.folderid,
+            deckName: deckName,
+            visibility: visibility
+        })
+    }
 
     return(
         <>
@@ -31,15 +42,16 @@ const SubjectDecks = () => {
                     <Form.Group>
                         <Form.Control type="text" onChange={(e) => setDeckName(e.target.value)} placeholder="Deck Name"></Form.Control>
                     </Form.Group>
+
                         {["Public", "Internal", "Private"].map((visible) => {
                             return(
                                 <div className={styles.visibleButtons}>
-                                    <Button value={visible}>{visible}</Button>
+                                    <Button value={visible} variant="outline-primary" onClick={(e) => setVisibility(e.target.value)}>{visible}</Button>
                                 </div>
                             )
                         })}
                     
-                    <Button>Add Deck</Button>
+                    <Button onClick={handleSubmit}>Add Deck</Button>
                 </Card>
             </Backdrop>
 
