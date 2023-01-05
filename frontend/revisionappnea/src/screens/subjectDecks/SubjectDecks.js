@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import NavigationBar from "../../components/navigation/navigationbar";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import styles from './subjectdecks.module.css';
 import Card from 'react-bootstrap/Card';
@@ -18,6 +18,8 @@ const SubjectDecks = () => {
     const[visibility, setVisibility] = useState("Public");
     const[deckData, setDeckData] = useState([]);
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         const getDeckData = async () => {
             await axios.post("http://localhost:3001/get-decks", {withCredentials: true, folderID: folderID.folderid})
@@ -32,10 +34,12 @@ const SubjectDecks = () => {
     }, [])  
 
     const handleSubmit = async () => {
-        window.location.reload(false);
+        const deckID = Math.floor(Math.random() + Date.now());
         setAddDeck(false);
+        window.location.reload(false);
         await axios.post("http://localhost:3001/add-deck", {
             withCredentials: true,
+            deckID: deckID,
             folderID: folderID.folderid,
             deckName: deckName,
             visibility: visibility
@@ -75,7 +79,7 @@ const SubjectDecks = () => {
                             <Card.Body>
                                 <Card.Title>{deckName.DeckName}</Card.Title>
                             </Card.Body>
-                            <Button>Go To Deck</Button>
+                            <Button onClick={() => navigate(`/subjects/${folderID.folderid}/${deckName.DeckID}`)}>Go To Deck</Button>
                         </Card>
                     )
                 })}

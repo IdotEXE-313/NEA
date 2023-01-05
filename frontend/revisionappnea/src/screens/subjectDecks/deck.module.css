@@ -1,0 +1,15 @@
+.container{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    
+}
+
+.deckName{
+    width: 50%;
+
+}
+
+.deckOptions{
+
+}

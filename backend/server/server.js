@@ -17,6 +17,7 @@ const addSubjectsRoute = require("../routes/insertData/addSubjectRoute");
 const getSubjectsTakenRoute = require("../routes/fetchData/getSubjectsTaken");
 const addDeckRoute = require("../routes/insertData/addDeckRoute");
 const getDeckRoute = require("../routes/fetchData/getDecks");
+const getDeckDataRoute = require("../routes/fetchData/getDeckData");
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -54,6 +55,7 @@ app.use("/", addSubjectsRoute);
 app.use("/", getSubjectsTakenRoute);
 app.use("/", addDeckRoute);
 app.use("/", getDeckRoute);
+app.use("/", getDeckDataRoute);
 
 
 app.listen(3001, () => console.log("Server is running"));

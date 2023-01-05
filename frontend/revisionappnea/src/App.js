@@ -7,6 +7,7 @@ import Home from "./screens/home/home";
 import AddSubject from "./screens/addSubject/addSubject";
 import Subjects from "./screens/subjects/Subjects";
 import SubjectDecks from "./screens/subjectDecks/SubjectDecks";
+import Deck from "./screens/subjectDecks/Deck";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="/add-subject" element={<AddSubject />}/>
           <Route path="/subjects" element={<Subjects />} />
             <Route path="/subjects/:folderid" element={<SubjectDecks />} />
+            <Route path="/subjects/:folderid/:deckid" element={<Deck />}/>
         </Route>
         <Route path="/register" element={<Register />}/>
         <Route path="/login" element={<Login />}/>
