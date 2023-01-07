@@ -1,15 +1,17 @@
-.container{
-    display: flex;
-    justify-content: center;
+.deckName,
+.deckOptions{
+    position: absolute;
     text-align: center;
-    
+    top: 50%;
+    width: 50%;
+    transform: translateY(-50%);
 }
 
 .deckName{
-    width: 50%;
-
+    font-weight: lighter;
+    right: 50%;
 }
 
 .deckOptions{
-
+    left: 50%;
 }

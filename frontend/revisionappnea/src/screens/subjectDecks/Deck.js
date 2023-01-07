@@ -23,14 +23,12 @@ const Deck = () => {
         <>
             <NavigationBar />
             <div className={styles.container}>
-            <div className={styles.deckName}>
-                {deckData}
-            </div>
-            <div className={styles.deckOptions}>
-                Options include: add card
-                review in priority queue
-                general review (stack)
-            </div>
+                <div className={styles.deckName}>
+                    <h3>{deckData}</h3>
+                </div>
+                <div className={styles.deckOptions}>
+                    <h3>Options</h3>
+                </div>
             </div>
         </>
     )
