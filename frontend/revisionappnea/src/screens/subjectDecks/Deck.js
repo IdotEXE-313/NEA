@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import NavigationBar from "../../components/navigation/navigationbar";
 import axios from "axios";
 import styles from './deck.module.css';
+import Button from "react-bootstrap/esm/Button";
 
 const Deck = () => {
 
@@ -27,7 +28,12 @@ const Deck = () => {
                     <h3>{deckData}</h3>
                 </div>
                 <div className={styles.deckOptions}>
-                    <h3>Options</h3>
+                    <h3>Cards</h3>
+                    <Button>Add Card</Button>
+                    <Button>View Cards</Button>
+                    <h3>Review</h3>
+                    <Button>Review All</Button>
+                    <Button>Priority Review</Button>
                 </div>
             </div>
         </>
