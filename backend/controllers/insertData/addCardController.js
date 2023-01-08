@@ -6,7 +6,7 @@ exports.addCard = async (req, res) => {
 
     await db.query("INSERT INTO card (cardID, deckID, CardFront, CardBack) VALUES (?, ?, ?, ?)", 
         [cardID, deckID, cardFront, cardBack])
-        .then((res) => {
+        .then((response) => {
             res.send({success: "Card Added"})
         })
         .catch((err) => {

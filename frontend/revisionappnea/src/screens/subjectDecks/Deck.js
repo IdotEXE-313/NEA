@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState} from "react";
+import { useParams, useNavigate} from "react-router-dom";
 import NavigationBar from "../../components/navigation/navigationbar";
 import axios from "axios";
 import styles from './deck.module.css';
@@ -16,6 +16,7 @@ const Deck = () => {
     const[addCard, showAddCard] = useState(false);
     const[frontCard, setFrontCard] = useState("");
     const[backCard, setBackCard] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getDeckData = async () => {
