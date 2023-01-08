@@ -25,7 +25,18 @@ const Deck = () => {
                 })
         }
         getDeckData();
-    }, [])
+    }, []);
+
+    const submitCard = async () => {
+        showAddCard(false);
+        console.log(frontCard)
+        await axios.post("http://localhost:3001/add-card", {
+            withCredentials: true,
+            cardFront: frontCard,
+            cardBack: backCard,
+            deckID: deckID.deckid
+        });
+    }
 
     return(
         <>
@@ -58,7 +69,7 @@ const Deck = () => {
                                 <Form.Group>
                                     <Form.Control type="text" onChange={(e) => setBackCard(e.target.value)} placeholder="Back of Card"></Form.Control>
                                 </Form.Group>
-                                <Button>Add Card</Button>
+                                <Button onClick={submitCard}>Add Card</Button>
                             </div>
                         </Card>
                         </Backdrop>
