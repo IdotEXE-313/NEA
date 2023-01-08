@@ -5,13 +5,12 @@ class Node {
     }
 }
 
-
 class Stack{
     constructor(){
         this.head = null; //implemented as a linked list, so top is the head of the list
         this.size = 0;
     }
-    push(card){
+    Enqueue(card){
         if(this.size === 0){
             this.head = card;
             this.size++;
@@ -24,14 +23,19 @@ class Stack{
         this.head = node;
 
     }
-    pop(){
-       
+    Dequeue(){
+       if(this.size > 0){
+        let removedItem = this.head; //get the current top of the stack
+        this.head = this.head.next; //set the current top to the next element
+        this.size--;
+        return removedItem;
+       }
     }
 }
 
 const stack = new Stack();
-stack.push("Hello");
-stack.push("Hi");
-stack.push("Hello Again");
-
+stack.Enqueue("Hello");
+stack.Enqueue("Hi");
+stack.Enqueue("Hello Again");
+console.log(stack.Dequeue());
 console.log(stack);
