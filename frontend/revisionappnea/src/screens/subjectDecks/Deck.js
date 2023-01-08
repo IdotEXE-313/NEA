@@ -4,11 +4,18 @@ import NavigationBar from "../../components/navigation/navigationbar";
 import axios from "axios";
 import styles from './deck.module.css';
 import Button from "react-bootstrap/esm/Button";
+import { Backdrop} from "@mui/material";
+import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
+import CloseButton from "react-bootstrap/esm/CloseButton";
 
 const Deck = () => {
 
     const deckID = useParams();
     const[deckData, setDeckData] = useState([]);
+    const[addCard, showAddCard] = useState(false);
+    const[frontCard, setFrontCard] = useState("");
+    const[backCard, setBackCard] = useState("");
 
     useEffect(() => {
         const getDeckData = async () => {
@@ -28,13 +35,34 @@ const Deck = () => {
                     <h3>{deckData}</h3>
                 </div>
                 <div className={styles.deckOptions}>
-                    <h3>Cards</h3>
-                    <Button>Add Card</Button>
-                    <Button>View Cards</Button>
+                    <div className={styles.cardOptions}>
+                        <h3>Cards</h3>
+                        <Button onClick={() => showAddCard(true)}>Add Card</Button>
+                        <Button>View Cards</Button>
+                    </div>
                     <h3>Review</h3>
                     <Button>Review All</Button>
                     <Button>Priority Review</Button>
                 </div>
+                <div>
+                        <Backdrop open={addCard}>
+                        <Card>
+                            <div className={styles.closeButtonDiv}>
+                                <CloseButton onClick={() => showAddCard(false)} />
+                            </div>
+                            <div className={styles.addCard}>
+                            <Card.Title>Add a Card</Card.Title>
+                                <Form.Group>
+                                    <Form.Control type="text" onChange={(e) => setFrontCard(e.target.value)} placeholder="Front of Card"></Form.Control>
+                                </Form.Group>
+                                <Form.Group>
+                                    <Form.Control type="text" onChange={(e) => setBackCard(e.target.value)} placeholder="Back of Card"></Form.Control>
+                                </Form.Group>
+                                <Button>Add Card</Button>
+                            </div>
+                        </Card>
+                        </Backdrop>
+                    </div>
             </div>
         </>
     )

@@ -14,3 +14,18 @@
 .deckOptions{
     left: 50%;
 }
+
+.addCard{
+    text-align: center; 
+    padding: 1em;
+}
+
+.addCard > *{
+    margin: 0.5em 0;
+}
+
+.closeButtonDiv{
+    display: flex;
+    justify-content: flex-end;
+}
+
