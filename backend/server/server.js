@@ -19,6 +19,7 @@ const addDeckRoute = require("../routes/insertData/addDeckRoute");
 const getDeckRoute = require("../routes/fetchData/getDecks");
 const getDeckDataRoute = require("../routes/fetchData/getDeckData");
 const addCardRoute = require("../routes/insertData/addCardRoute");
+const getCardDataRoute = require("../routes/fetchData/getCardData");
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -58,6 +59,7 @@ app.use("/", addDeckRoute);
 app.use("/", getDeckRoute);
 app.use("/", getDeckDataRoute);
 app.use("/", addCardRoute);
+app.use("/", getCardDataRoute);
 
 
 app.listen(3001, () => console.log("Server is running"));

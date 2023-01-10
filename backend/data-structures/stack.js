@@ -33,9 +33,13 @@ class Stack{
     }
 }
 
-const stack = new Stack();
-stack.Enqueue("Hello");
-stack.Enqueue("Hi");
-stack.Enqueue("Hello Again");
-console.log(stack.Dequeue());
-console.log(stack);
+module.exports = {Stack, Node};
+
+
+
+// const stack = new Stack();
+// stack.Enqueue("Hello");
+// stack.Enqueue("Hi");
+// stack.Enqueue("Hello Again");
+// console.log(stack.Dequeue());
+// console.log(stack);

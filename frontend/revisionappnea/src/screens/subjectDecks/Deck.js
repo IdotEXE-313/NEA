@@ -53,7 +53,7 @@ const Deck = () => {
                         <Button>View Cards</Button>
                     </div>
                     <h3>Review</h3>
-                    <Button>Review All</Button>
+                    <Button onClick={() => navigate(`/review/${deckID.deckid}/`)}>Review All</Button>
                     <Button>Priority Review</Button>
                 </div>
                 <div>
