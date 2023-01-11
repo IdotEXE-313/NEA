@@ -4,6 +4,8 @@ import NavigationBar from "../../components/navigation/navigationbar";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import Button from "react-bootstrap/esm/Button";
+import Card from 'react-bootstrap/Card';
+import styles from './review.module.css';
 
 const Review = () => {
 
@@ -35,10 +37,15 @@ const Review = () => {
     return(
         <>
             <NavigationBar />
-            {cardFront}
-            {cardBack}
-            <Button onClick={dequeueCard}>Next Card</Button>
+            <div className={styles.cardContainer}>
+                <Card className={styles.reviewCard}>
+                    <Card.Body>
+                        <Card.Title>{cardFront}</Card.Title>
+                    </Card.Body>
+                    <Button onClick={dequeueCard}>Next Card</Button>
 
+                </Card>
+            </div>
 
         </>
     )
