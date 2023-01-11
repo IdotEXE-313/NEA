@@ -30,10 +30,11 @@ class Stack{
         this.size--;
         return removedItem;
        }
+       return null;
     }
 }
 
-module.exports = {Stack, Node};
+module.exports = {Stack};
 
 
 

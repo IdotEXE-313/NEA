@@ -5,5 +5,6 @@ const controller = require("../../controllers/fetchData/getCardDataController");
 router
     .route("/card-data/")
     .post(controller.getCardData)
+    .get(controller.fetchCard)
 
 module.exports = router;
