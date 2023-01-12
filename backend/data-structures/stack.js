@@ -30,7 +30,6 @@ class Stack{
         this.size--;
         return removedItem;
        }
-       return null;
     }
 }
 

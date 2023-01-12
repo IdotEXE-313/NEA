@@ -29,6 +29,7 @@ const Review = () => {
     const dequeueCard = async() => {
         await axios.get("http://localhost:3001/card-data")
             .then((res) => {
+                console.log(res);
                 setCardFront(res.data.cardData.CardFront);
                 setCardBack(res.data.cardData.CardBack);
             })
