@@ -14,6 +14,7 @@ const Review = () => {
     const[cardBack, setCardBack] = useState("");
     const[revealBack, setRevealBack] = useState(false);
     const[visibilityReveal, setVisiblityReveal] = useState("");
+    const[visibilityOptions, setVisibilityOptions] = useState("d-none");
 
     useEffect(() => {
         const getCardData = async() => {
@@ -34,12 +35,16 @@ const Review = () => {
                 console.log(res);
                 setCardFront(res.data.cardData.CardFront);
                 setCardBack(res.data.cardData.CardBack);
-            })
+            });
+        setVisibilityOptions("d-none");
+        setRevealBack(false);
+        setVisiblityReveal("");
     }
 
     const handleClick = () => {
         setRevealBack(true);
         setVisiblityReveal("d-none");
+        setVisibilityOptions("");
     }
 
     return(
@@ -52,9 +57,19 @@ const Review = () => {
                     </Card.Body>
                     <Button onClick={handleClick} className={visibilityReveal}>Reveal Back</Button>
                     {/* <Button onClick={dequeueCard}>Next Card</Button> */}
+                    {["Again", "Good", "Easy"].map((ease) => {
+                        return(
+                            <div className={styles.visibilityContainer}>
+                                <div className={visibilityOptions}>
+                                    <div className={styles.easeButtons}>
+                                        <Button value={ease} onClick={dequeueCard}>{ease}</Button>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+            })}
 
                 </Card>
-                
             </div>
 
         </>
