@@ -12,6 +12,8 @@ const Review = () => {
     const deckID = useParams();
     const[cardFront, setCardFront] = useState("");
     const[cardBack, setCardBack] = useState("");
+    const[revealBack, setRevealBack] = useState(false);
+    const[visibilityReveal, setVisiblityReveal] = useState("");
 
     useEffect(() => {
         const getCardData = async() => {
@@ -35,17 +37,24 @@ const Review = () => {
             })
     }
 
+    const handleClick = () => {
+        setRevealBack(true);
+        setVisiblityReveal("d-none");
+    }
+
     return(
         <>
             <NavigationBar />
             <div className={styles.cardContainer}>
                 <Card className={styles.reviewCard}>
                     <Card.Body>
-                        <Card.Title>{cardFront}</Card.Title>
+                        <Card.Title>{revealBack ? cardBack : cardFront}</Card.Title>
                     </Card.Body>
-                    <Button onClick={dequeueCard}>Next Card</Button>
+                    <Button onClick={handleClick} className={visibilityReveal}>Reveal Back</Button>
+                    {/* <Button onClick={dequeueCard}>Next Card</Button> */}
 
                 </Card>
+                
             </div>
 
         </>
