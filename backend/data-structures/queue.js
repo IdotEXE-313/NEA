@@ -20,7 +20,7 @@ class Queue{
     checkIfEmpty = () => {return this.front === null};
 
 
-    Enqueue(cardDataObject){
+    enqueue(cardDataObject){
 
         let node = new Node(cardDataObject);
 
@@ -53,9 +53,20 @@ class Queue{
                 node.next = currentNode;
                 previous.next = node;
             }
+        };
+    }
+
+    dequeue(){
+        //if the queue is empty, then there is nothing to dequeue
+        if(this.checkIfEmpty()){
+            return ({value: null});
         }
 
+        //Set the new front of the queue to the next item in the queue
+        let itemToRemove = this.front;
+        this.front = this.front.next;
 
+        return({value: itemToRemove});
     }
 }
 
