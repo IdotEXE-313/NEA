@@ -33,10 +33,14 @@ const ReviewStack = () => {
     const dequeueCardStack = async(priority) => {
         await axios.get("http://localhost:3001/card-data-stack")
             .then((res) => {
-                console.log(res);
-                setCardFront(res.data.cardData.CardFront);
-                setCardBack(res.data.cardData.CardBack);
-                setCardID(res.data.cardData.CardID);
+                if(!res.data.endOfStack){
+                    setCardFront(res.data.cardData.CardFront);
+                    setCardBack(res.data.cardData.CardBack);
+                    setCardID(res.data.cardData.CardID);
+                }
+                else{
+                    //do something with frontend
+                }
             });
         setVisibilityOptions("d-none");
         setRevealBack(false);
