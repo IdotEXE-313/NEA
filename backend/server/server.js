@@ -21,6 +21,7 @@ const getDeckDataRoute = require("../routes/fetchData/getDeckData");
 const addCardRoute = require("../routes/insertData/addCardRoute");
 const getCardDataRouteStack = require("../routes/fetchData/getCardDataStack");
 const getCardDataRouteQueue = require("../routes/fetchData/getCardDataQueue");
+const updateCardPriority = require("../routes/updateData/updatePriority");
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -62,6 +63,7 @@ app.use("/", getDeckDataRoute);
 app.use("/", addCardRoute);
 app.use("/", getCardDataRouteStack);
 app.use("/", getCardDataRouteQueue);
+app.use("/", updateCardPriority);
 
 
 app.listen(3001, () => console.log("Server is running"));

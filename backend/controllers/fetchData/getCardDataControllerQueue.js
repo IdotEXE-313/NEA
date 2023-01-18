@@ -26,6 +26,7 @@ exports.queueCards = async(req, res) => {
 }
 
 exports.getCardQueue = async(req, res) => {
+    console.log(queue);
     const cardDataObject = queue.dequeue();
     if(cardDataObject.value){
         res.send({cardData: cardDataObject});

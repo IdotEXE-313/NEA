@@ -9,9 +9,10 @@ import styles from './review.module.css';
 
 const ReviewStack = () => {
 
-    const deckID = useParams();
+    const deckID= useParams();
     const[cardFront, setCardFront] = useState("");
     const[cardBack, setCardBack] = useState("");
+    const[cardID, setCardID] = useState("");
     const[revealBack, setRevealBack] = useState(false);
     const[visibilityReveal, setVisiblityReveal] = useState("");
     const[visibilityOptions, setVisibilityOptions] = useState("d-none");
@@ -29,16 +30,24 @@ const ReviewStack = () => {
         getCardData();
     }, []);
 
-    const dequeueCardStack = async() => {
+    const dequeueCardStack = async(priority) => {
         await axios.get("http://localhost:3001/card-data-stack")
             .then((res) => {
                 console.log(res);
                 setCardFront(res.data.cardData.CardFront);
                 setCardBack(res.data.cardData.CardBack);
+                setCardID(res.data.cardData.CardID);
             });
         setVisibilityOptions("d-none");
         setRevealBack(false);
         setVisiblityReveal("");
+
+        await axios.post("http://localhost:3001/update-card-stack", {
+            withCredentials: true,
+            priority: priority,
+            deckID: deckID.deckid,
+            cardID: cardID
+        });
     }
 
     const handleClick = () => {
@@ -56,12 +65,12 @@ const ReviewStack = () => {
                         <Card.Title>{revealBack ? cardBack : cardFront}</Card.Title>
                     </Card.Body>
                     <Button onClick={handleClick} className={visibilityReveal}>Reveal Back</Button>
-                    {["Easy", "Good", "Hard"].map((ease) => {
+                    {["Easy", "Good", "Hard"].map((ease, priority) => {
                         return(
                             <div className={styles.visibilityContainer}>
                                 <div className={visibilityOptions}>
                                     <div className={styles.easeButtons}>
-                                        <Button value={ease} onClick={dequeueCardStack}>{ease}</Button>
+                                        <Button value={ease} onClick={() => dequeueCardStack(priority)}>{ease}</Button>
                                     </div>
                                 </div>
                             </div>
