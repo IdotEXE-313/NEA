@@ -1,41 +1,48 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import NavigationBar from "../../components/navigation/navigationbar";
 import axios from "axios";
-import { useParams } from "react-router-dom";
-import Button from "react-bootstrap/esm/Button";
-import Card from 'react-bootstrap/Card';
 import styles from './review.module.css';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 
-const ReviewStack = () => {
+const ReviewQueue = () => {
 
     const deckID = useParams();
-    const[cardFront, setCardFront] = useState("");
     const[cardBack, setCardBack] = useState("");
+    const[cardFront, setCardFront] = useState("");
     const[revealBack, setRevealBack] = useState(false);
     const[visibilityReveal, setVisiblityReveal] = useState("");
     const[visibilityOptions, setVisibilityOptions] = useState("d-none");
 
-    useEffect(() => {
-        const getCardData = async() => {
-            await axios.post("http://localhost:3001/card-data-stack", {withCredentials: true, deckID: deckID.deckid})
-                .then(() => {
-                    dequeueCardStack();
-                })
-                .catch((err) => {
-                    console.log(err);
-                })
-        }
-        getCardData();
-    }, []);
 
-    const dequeueCardStack = async() => {
-        await axios.get("http://localhost:3001/card-data-stack")
+    useEffect(() => {
+        const queueCards = async() => {
+            await axios.post("http://localhost:3001/card-data-queue", {
+                withCredentials: true,
+                deckID: deckID.deckid
+            })
+            .then(() => {
+                dequeueCard();
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        }
+        queueCards();
+    }, [])
+
+
+    const dequeueCard = async() => {
+        await axios.get("http://localhost:3001/card-data-queue")
             .then((res) => {
-                console.log(res);
-                setCardFront(res.data.cardData.CardFront);
                 setCardBack(res.data.cardData.CardBack);
+                setCardFront(res.data.cardData.CardFront);
+            })
+            .catch((err) => {
+                console.log(err);
             });
+        
         setVisibilityOptions("d-none");
         setRevealBack(false);
         setVisiblityReveal("");
@@ -56,12 +63,12 @@ const ReviewStack = () => {
                         <Card.Title>{revealBack ? cardBack : cardFront}</Card.Title>
                     </Card.Body>
                     <Button onClick={handleClick} className={visibilityReveal}>Reveal Back</Button>
-                    {["Easy", "Good", "Hard"].map((ease) => {
+                    {["Again", "Good", "Easy"].map((ease) => {
                         return(
                             <div className={styles.visibilityContainer}>
                                 <div className={visibilityOptions}>
                                     <div className={styles.easeButtons}>
-                                        <Button value={ease} onClick={dequeueCardStack}>{ease}</Button>
+                                        <Button value={ease} onClick={dequeueCard}>{ease}</Button>
                                     </div>
                                 </div>
                             </div>
@@ -70,9 +77,8 @@ const ReviewStack = () => {
 
                 </Card>
             </div>
-
         </>
     )
 }
 
-export default ReviewStack;
+export default ReviewQueue;

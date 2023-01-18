@@ -12,7 +12,7 @@ class Stack{
     }
     Enqueue(card){
         if(this.size === 0){
-            this.head = card;
+            this.head = {value: card};
             this.size++;
             return;
         }

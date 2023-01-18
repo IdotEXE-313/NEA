@@ -54,7 +54,7 @@ const Deck = () => {
                     </div>
                     <h3>Review</h3>
                     <Button onClick={() => navigate(`/review-stack/${deckID.deckid}/`)}>Review All</Button>
-                    <Button>Priority Review</Button>
+                    <Button onClick={() => navigate(`/review-queue/${deckID.deckid}`)}>Priority Review</Button>
                 </div>
                 <div>
                         <Backdrop open={addCard}>

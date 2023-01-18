@@ -9,6 +9,7 @@ import Subjects from "./screens/subjects/Subjects";
 import SubjectDecks from "./screens/subjectDecks/SubjectDecks";
 import Deck from "./screens/subjectDecks/Deck";
 import ReviewStack from "./screens/reviewPage/ReviewStack";
+import ReviewQueue from "./screens/reviewPage/ReviewQueue";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -23,6 +24,7 @@ function App() {
             <Route path="/subjects/:folderid" element={<SubjectDecks />} />
             <Route path="/subjects/:folderid/:deckid" element={<Deck />}/>
             <Route path="/review-stack/:deckid" element={<ReviewStack />}/>
+            <Route path="/review-queue/:deckid" element={<ReviewQueue />} />
         </Route>
         <Route path="/register" element={<Register />}/>
         <Route path="/login" element={<Login />}/>
