@@ -7,7 +7,7 @@ import Button from "react-bootstrap/esm/Button";
 import Card from 'react-bootstrap/Card';
 import styles from './review.module.css';
 
-const Review = () => {
+const ReviewStack = () => {
 
     const deckID = useParams();
     const[cardFront, setCardFront] = useState("");
@@ -18,9 +18,9 @@ const Review = () => {
 
     useEffect(() => {
         const getCardData = async() => {
-            await axios.post("http://localhost:3001/card-data", {withCredentials: true, deckID: deckID.deckid})
+            await axios.post("http://localhost:3001/card-data-stack", {withCredentials: true, deckID: deckID.deckid})
                 .then(() => {
-                    dequeueCard();
+                    dequeueCardStack();
                 })
                 .catch((err) => {
                     console.log(err);
@@ -29,8 +29,8 @@ const Review = () => {
         getCardData();
     }, []);
 
-    const dequeueCard = async() => {
-        await axios.get("http://localhost:3001/card-data")
+    const dequeueCardStack = async() => {
+        await axios.get("http://localhost:3001/card-data-stack")
             .then((res) => {
                 console.log(res);
                 setCardFront(res.data.cardData.CardFront);
@@ -56,13 +56,12 @@ const Review = () => {
                         <Card.Title>{revealBack ? cardBack : cardFront}</Card.Title>
                     </Card.Body>
                     <Button onClick={handleClick} className={visibilityReveal}>Reveal Back</Button>
-                    {/* <Button onClick={dequeueCard}>Next Card</Button> */}
                     {["Again", "Good", "Easy"].map((ease) => {
                         return(
                             <div className={styles.visibilityContainer}>
                                 <div className={visibilityOptions}>
                                     <div className={styles.easeButtons}>
-                                        <Button value={ease} onClick={dequeueCard}>{ease}</Button>
+                                        <Button value={ease} onClick={dequeueCardStack}>{ease}</Button>
                                     </div>
                                 </div>
                             </div>
@@ -76,4 +75,4 @@ const Review = () => {
     )
 }
 
-export default Review;
+export default ReviewStack;

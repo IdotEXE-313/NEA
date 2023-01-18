@@ -35,11 +35,3 @@ class Stack{
 
 module.exports = {Stack};
 
-
-
-// const stack = new Stack();
-// stack.Enqueue("Hello");
-// stack.Enqueue("Hi");
-// stack.Enqueue("Hello Again");
-// console.log(stack.Dequeue());
-// console.log(stack);

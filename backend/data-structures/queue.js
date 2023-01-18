@@ -1,6 +1,6 @@
 /*
 General Code Structure Taken from Isaac Computer Science https://isaaccomputerscience.org/concepts/dsa_datastruct_queue?examBoard=all&stage=all
-The Psuedocode was followed to write the Enqueue method
+The Psuedocode was followed to write the Enqueue method. 
 */
 
 
