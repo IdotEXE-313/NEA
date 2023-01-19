@@ -22,7 +22,7 @@ const ReviewQueue = () => {
                 withCredentials: true,
                 deckID: deckID.deckid
             })
-            .then(() => {
+            .then((res) => {
                 dequeueCard();
             })
             .catch((err) => {
@@ -36,8 +36,9 @@ const ReviewQueue = () => {
     const dequeueCard = async() => {
         await axios.get("http://localhost:3001/card-data-queue")
             .then((res) => {
-                setCardBack(res.data.cardData.CardBack);
-                setCardFront(res.data.cardData.CardFront);
+                console.log(res);
+                setCardBack(res.data.cardData.value.value.CardBack);
+                setCardFront(res.data.cardData.value.value.CardFront);
             })
             .catch((err) => {
                 console.log(err);

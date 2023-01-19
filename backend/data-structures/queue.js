@@ -32,13 +32,13 @@ class Queue{
         }
         else{
             //If the new node's priority greater than the front, insert the new node at the front
-            if(node.value.priority > this.front.value.priority){ 
+            if(node.value.Priority > this.front.value.Priority){ 
                 node.next = this.front;
                 this.front = node;
             }
 
             //If the new node's priority is less than the rear value, the previous lowest priority, then set the rear to this new node
-            else if(node.value.priority <= this.rear.value.priority){
+            else if(node.value.Priority <= this.rear.value.Priority){
                 this.rear.next = node;
                 this.rear = node;
             }
@@ -46,7 +46,7 @@ class Queue{
                 //Else, find the position of insertion (inserted before the first element of a lower priority)
                 let currentNode = this.front;
                 let previous= null;
-                while(currentNode.value.priority >= node.value.priority){
+                while(currentNode.value.Priority >= node.value.Priority){
                     previous = currentNode;
                     currentNode = currentNode.next;
                 }
