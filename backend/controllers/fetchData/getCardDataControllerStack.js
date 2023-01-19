@@ -26,10 +26,5 @@ exports.getCardData = async(req, res) => {
 
 exports.fetchCard = async (req, res) => {
     let cardObject = stack.Dequeue();
-    try{
-        res.send({cardData: cardObject.value});
-    }
-    catch{
-        res.send({endOfStack: "Stack Ended"});
-    }
+    res.send({cardData: cardObject.value});
 }

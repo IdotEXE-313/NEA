@@ -10,6 +10,9 @@ class Stack{
         this.head = null; //implemented as a linked list, so top is the head of the list
         this.size = 0;
     }
+
+    checkIfEmpty = () => {return this.size === 0};
+
     Enqueue(card){
         if(this.size === 0){
             this.head = {value: card};
@@ -24,12 +27,13 @@ class Stack{
 
     }
     Dequeue(){
-       if(this.size > 0){
+       if(!this.checkIfEmpty()){
         let removedItem = this.head; //get the current top of the stack
         this.head = this.head.next; //set the current top to the next element
         this.size--;
         return removedItem;
        }
+       return ({value: null});
     }
 }
 

@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import NavigationBar from "../../components/navigation/navigationbar";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Button from "react-bootstrap/esm/Button";
 import Card from 'react-bootstrap/Card';
 import styles from './review.module.css';
@@ -33,13 +33,14 @@ const ReviewStack = () => {
     const dequeueCardStack = async(priority) => {
         await axios.get("http://localhost:3001/card-data-stack")
             .then((res) => {
-                if(!res.data.endOfStack){
+                console.log(res.data.cardData);
+                if(res.data.cardData !== null){
                     setCardFront(res.data.cardData.CardFront);
                     setCardBack(res.data.cardData.CardBack);
                     setCardID(res.data.cardData.CardID);
                 }
                 else{
-                    //do something with frontend
+                    //do frontend
                 }
             });
         setVisibilityOptions("d-none");
