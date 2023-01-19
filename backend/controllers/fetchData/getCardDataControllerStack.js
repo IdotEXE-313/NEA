@@ -1,8 +1,10 @@
 const db = require("../../database/connection");
 const {Stack} = require("../../data-structures/stack");
-const stack = new Stack();
+let stack;
 
 exports.getCardData = async(req, res) => {
+
+    stack = new Stack();
 
     const deckID = req.body.deckID;
 
@@ -25,6 +27,7 @@ exports.getCardData = async(req, res) => {
 }
 
 exports.fetchCard = async (req, res) => {
+    console.log(stack);
     let cardObject = stack.Dequeue();
     res.send({cardData: cardObject.value});
 }

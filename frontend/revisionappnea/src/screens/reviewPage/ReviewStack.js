@@ -33,19 +33,22 @@ const ReviewStack = () => {
     const dequeueCardStack = async(priority) => {
         await axios.get("http://localhost:3001/card-data-stack")
             .then((res) => {
-                console.log(res.data.cardData);
+                setVisibilityOptions("d-none");
+                setRevealBack(false);
+                setVisiblityReveal("");
                 if(res.data.cardData !== null){
                     setCardFront(res.data.cardData.CardFront);
                     setCardBack(res.data.cardData.CardBack);
                     setCardID(res.data.cardData.CardID);
                 }
                 else{
-                    //do frontend
+                    setCardFront("Stack Finished");
+                    setVisiblityReveal("d-none");
                 }
-            });
-        setVisibilityOptions("d-none");
-        setRevealBack(false);
-        setVisiblityReveal("");
+            })
+            .catch((err) => {
+                console.log(err);
+            })
 
         await axios.post("http://localhost:3001/update-card-stack", {
             withCredentials: true,
