@@ -27,7 +27,6 @@ exports.getCardData = async(req, res) => {
 }
 
 exports.fetchCard = async (req, res) => {
-    console.log(stack);
     let cardObject = stack.Dequeue();
     res.send({cardData: cardObject.value});
 }

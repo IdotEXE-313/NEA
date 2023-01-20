@@ -33,20 +33,22 @@ const ReviewQueue = () => {
     }, [])
 
 
-    const dequeueCard = async() => {
+    const dequeueCard = async () => {
         await axios.get("http://localhost:3001/card-data-queue")
             .then((res) => {
                 console.log(res);
-                setCardBack(res.data.cardData.value.value.CardBack);
-                setCardFront(res.data.cardData.value.value.CardFront);
+                setVisibilityOptions("d-none");
+                setRevealBack(false);
+                setVisiblityReveal("");
+                if(res.data.cardData!== null){
+                    setCardBack(res.data.cardData.value.CardBack);
+                    setCardFront(res.data.cardData.value.CardFront);
+                }
+                else{
+                    setCardFront("Queue Finished");
+                    setVisiblityReveal("d-none");
+                }
             })
-            .catch((err) => {
-                console.log(err);
-            });
-        
-        setVisibilityOptions("d-none");
-        setRevealBack(false);
-        setVisiblityReveal("");
     }
 
     const handleClick = () => {
