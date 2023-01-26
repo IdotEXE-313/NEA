@@ -14,7 +14,7 @@ const Home = () => {
                 withCredentials: true,
                 username: username
             }).then((res) => {
-                setUserData(res);
+                setUserData(res.data.schoolName[0][0].EstablishmentName);
             })
             .catch((err) => {
                 console.log(err)
@@ -30,7 +30,7 @@ const Home = () => {
                 <h1>Hello {username}</h1>    
             </div>
             <div>
-                Other decks from {userData.data.schoolName[0][0].EstablishmentName}
+                Other decks from {userData}
             </div>
         </>
     )
