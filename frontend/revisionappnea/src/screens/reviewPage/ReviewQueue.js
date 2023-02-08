@@ -66,7 +66,7 @@ const ReviewQueue = () => {
                         <Card.Title>{revealBack ? cardBack : cardFront}</Card.Title>
                     </Card.Body>
                     <Button onClick={handleClick} className={visibilityReveal}>Reveal Back</Button>
-                    {["Again", "Good", "Easy"].map((ease) => {
+                    {[0, 1, 2, 3, 4, 5].map((ease) => {
                         return(
                             <div className={styles.visibilityContainer}>
                                 <div className={visibilityOptions}>

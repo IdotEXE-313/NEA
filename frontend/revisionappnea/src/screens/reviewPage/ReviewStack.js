@@ -73,7 +73,7 @@ const ReviewStack = () => {
                         <Card.Title>{revealBack ? cardBack : cardFront}</Card.Title>
                     </Card.Body>
                     <Button onClick={handleClick} className={visibilityReveal}>Reveal Back</Button>
-                    {["Easy", "Good", "Hard"].map((ease, priority) => {
+                    {[0, 1, 2, 3, 4, 5].map((ease, priority) => {
                         return(
                             <div className={styles.visibilityContainer}>
                                 <div className={visibilityOptions}>
