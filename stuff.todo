@@ -1,0 +1,10 @@
+priority mode:
+    - user is initially greeted with cards in no particular order (since priority even)
+    - priority mode is the only mode to update the card priority
+    - Display priority number for each card
+
+spaced recall:
+    - When a user pops a card (with ease of rememberance), run through supermemo 2
+    - Need a supermemo2 controller, which takes in data below, runs through algo, calculates new date
+    - Data that needs to be sent: intervalNum, rep, efactor (from db, using card id from pop); grade (from ease)
+    - Insert new data into db, with updated date (calculated using interval)

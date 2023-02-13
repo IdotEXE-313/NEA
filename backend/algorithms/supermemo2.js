@@ -1,5 +1,5 @@
 class SuperMemo{
-    constructor({intervalNum, repitition, efactor}, grade){
+    constructor(intervalNum, repitition, efactor, grade){
         //when following the psuedocode, these values, except for grade, are the previous values. Updated values will be returned and added to the db
         this.interval = intervalNum; 
         this.repitition = repitition;
@@ -12,10 +12,13 @@ class SuperMemo{
             switch(this.repitition){
                 case 0:
                     this.interval = 1;
+                    break;
                 case 1:
                     this.interval = 6;
+                    break;
                 default:
                     this.interval *= this.efactor;
+                    break;
             }
             this.repitition++;
             this.efactor += (0.1 - (5 - this.grade) * (0.08 + (5 - this.grade) * 0.02));

@@ -23,6 +23,7 @@ const getCardDataRouteStack = require("../routes/fetchData/getCardDataStack");
 const getCardDataRouteQueue = require("../routes/fetchData/getCardDataQueue");
 const updateCardPriority = require("../routes/updateData/updatePriority");
 const getUserDataRoute = require("../routes/fetchData/getUserDataRoute");
+const updateDateRoute = require("../routes/updateData/nextDateRoute");
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -66,6 +67,7 @@ app.use("/", getCardDataRouteStack);
 app.use("/", getCardDataRouteQueue);
 app.use("/", updateCardPriority);
 app.use("/", getUserDataRoute);
+app.use("/", updateDateRoute);
 
 
 app.listen(3001, () => console.log("Server is running"));

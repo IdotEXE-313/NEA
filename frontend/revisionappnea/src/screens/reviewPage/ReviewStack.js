@@ -30,7 +30,7 @@ const ReviewStack = () => {
         getCardData();
     }, []);
 
-    const dequeueCardStack = async(priority) => {
+    const dequeueCardStack = async(grade) => {
         await axios.get("http://localhost:3001/card-data-stack")
             .then((res) => {
                 setVisibilityOptions("d-none");
@@ -50,10 +50,9 @@ const ReviewStack = () => {
                 console.log(err);
             })
 
-        await axios.post("http://localhost:3001/update-card-stack", {
+        await axios.post("http://localhost:3001/update-date", {
             withCredentials: true,
-            priority: priority,
-            deckID: deckID.deckid,
+            grade: grade,
             cardID: cardID
         });
     }
