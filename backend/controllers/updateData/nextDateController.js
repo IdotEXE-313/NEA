@@ -20,9 +20,9 @@ exports.updateDate = async(req, res) => {
     const updateDate = async(_interval, _rep, _efactor) => {
         const supermemo = new SuperMemo(_interval, _rep, _efactor, grade);
         const {interval, repetition, efactor} = supermemo.superMemo();
-        const nextDate = date.setDate(date.getDate() +interval);
-        console.log(nextDate);
-        await db.query("UPDATE card SET intervalNum = ?, repitition = ?, efactor = ? WHERE card.cardID = ?", [interval, repetition, efactor, cardID])
+        date.setDate(date.getDate() + interval);
+
+        await db.query("UPDATE card SET NextReviewDate = ?, intervalNum = ?, repitition = ?, efactor = ? WHERE card.cardID = ?", [date, interval, repetition, efactor, cardID])
             .then((response) => {
                 console.log(response);
             })
