@@ -37,14 +37,12 @@ const ReviewQueue = () => {
     const dequeueCard = async () => {
         await axios.get("http://localhost:3001/card-data-queue")
             .then((res) => {
-                console.log(res);
                 setCardData(res.data.cardData);
                 showCardFront();
 
                 if(cardData !== null){
                     setCardBack(cardData.value.CardBack); //separate variables since their state needs to differ from their initial values
                     setCardFront(cardData.value.CardFront);
-                    console.log(cardData.value.Priority);
                 }
                 else{
                     setCardFront("Queue Finished");
@@ -55,7 +53,7 @@ const ReviewQueue = () => {
     }
 
     const updateCardPriority = async (newPriority) => {
-        dequeueCard();
+        await dequeueCard();
         await axios.post("http://localhost:3001/update-card-priority", {
             withCredentials: true,
             priority: newPriority,
@@ -82,7 +80,7 @@ const ReviewQueue = () => {
         <>
             <NavigationBar />
             <div className={styles.priorityDiv}>
-                Priority: {cardData.value.Priority}
+                {/* Priority: {cardData.value.Priority} */}
             </div>
             <div className={styles.cardContainer}>
                 <Card className={styles.reviewCard}>
