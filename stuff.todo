@@ -3,6 +3,7 @@ priority mode:
     - priority mode is the only mode to update the card priority
     - Display priority number for each card
 
+@done
 spaced recall:
     - When a user pops a card (with ease of rememberance), run through supermemo 2
     - Need a supermemo2 controller, which takes in data below, runs through algo, calculates new date

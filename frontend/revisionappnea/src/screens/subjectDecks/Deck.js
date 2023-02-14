@@ -53,7 +53,7 @@ const Deck = () => {
                         <Button>View Cards</Button>
                     </div>
                     <h3>Review</h3>
-                    <Button onClick={() => navigate(`/review-stack/${deckID.deckid}/`)}>Review All</Button>
+                    <Button onClick={() => navigate(`/review-stack/${deckID.deckid}/`)}>Spaced Recall</Button>
                     <Button onClick={() => navigate(`/review-queue/${deckID.deckid}`)}>Priority Review</Button>
                 </div>
                 <div>
