@@ -7,8 +7,8 @@ exports.addCard = async (req, res) => {
     const date = new Date(dateObject.getFullYear(), dateObject.getMonth(), dateObject.getDate());
     const cardID = Math.floor(Date.now() + Math.random());
 
-    await db.query("INSERT INTO card (cardID, deckID, CardFront, CardBack, NextReviewDate, intervalNum, repitition, efactor) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", 
-        [cardID, deckID, cardFront, cardBack, date, 0, 0, efactor])
+    await db.query("INSERT INTO card (cardID, deckID, CardFront, CardBack, NextReviewDate, Priority, intervalNum, repitition, efactor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+        [cardID, deckID, cardFront, cardBack, date, 0, 0, 0, efactor])
         .then((response) => {
             res.send({success: "Card Added"})
         })

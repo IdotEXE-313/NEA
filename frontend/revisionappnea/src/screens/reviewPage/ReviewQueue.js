@@ -14,6 +14,8 @@ const ReviewQueue = () => {
     const[revealBack, setRevealBack] = useState(false);
     const[visibilityReveal, setVisiblityReveal] = useState("");
     const[visibilityOptions, setVisibilityOptions] = useState("d-none");
+    const[priority, setPriority] = useState(0);
+    const[cardID, setCardID] = useState("");
 
 
     useEffect(() => {
@@ -33,7 +35,7 @@ const ReviewQueue = () => {
     }, [])
 
 
-    const dequeueCard = async () => {
+    const dequeueCard = async (newPriority) => {
         await axios.get("http://localhost:3001/card-data-queue")
             .then((res) => {
                 console.log(res);
@@ -43,12 +45,21 @@ const ReviewQueue = () => {
                 if(res.data.cardData!== null){
                     setCardBack(res.data.cardData.value.CardBack);
                     setCardFront(res.data.cardData.value.CardFront);
+                    setCardID(res.data.cardData.value.CardID);
+                    setPriority(res.data.cardData.value.Priority);
                 }
                 else{
                     setCardFront("Queue Finished");
                     setVisiblityReveal("d-none");
                 }
             })
+        
+        await axios.post("http://localhost:3001/update-card-priority", {
+                withCredentials: true,
+                priority: newPriority,
+                deckID: deckID.deckid,
+                cardID: cardID
+            });
     }
 
     const handleClick = () => {
@@ -60,18 +71,21 @@ const ReviewQueue = () => {
     return(
         <>
             <NavigationBar />
+            <div className={styles.priorityDiv}>
+                Priority: {priority}
+            </div>
             <div className={styles.cardContainer}>
                 <Card className={styles.reviewCard}>
                     <Card.Body>
                         <Card.Title>{revealBack ? cardBack : cardFront}</Card.Title>
                     </Card.Body>
                     <Button onClick={handleClick} className={visibilityReveal}>Reveal Back</Button>
-                    {["Easy", "Good", "CHallenging", "Hard"].map((ease) => {
+                    {["Easy", "Good", "Challenging", "Hard"].map((ease, index) => {
                         return(
                             <div className={styles.visibilityContainer}>
                                 <div className={visibilityOptions}>
                                     <div className={styles.easeButtons}>
-                                        <Button value={ease} onClick={dequeueCard}>{ease}</Button>
+                                        <Button value={index} onClick={(e) => dequeueCard(e.target.value)}>{ease}</Button>
                                     </div>
                                 </div>
                             </div>
