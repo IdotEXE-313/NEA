@@ -16,7 +16,7 @@ exports.getCardData = async(req, res) => {
 
     await db.query(`SELECT DATE_FORMAT(card.NextReviewDate, ?), CardID, CardFront, CardBack FROM card, decks 
                     WHERE decks.DeckID = ? AND card.DeckID = ?
-                    AND DATE(card.NextReviewDate) = CURDATE()`, ['%Y-%m-%d', deckID, deckID])
+                    AND DATE(card.NextReviewDate) <= CURDATE()`, ['%Y-%m-%d', deckID, deckID])
         .then((response) => {
             //  receives response in form {CardFront:, CardBack:}
             addToStack(response[0]);

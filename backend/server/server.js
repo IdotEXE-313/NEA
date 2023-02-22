@@ -25,11 +25,13 @@ const updateCardPriority = require("../routes/updateData/updatePriority");
 const getUserDataRoute = require("../routes/fetchData/getUserDataRoute");
 const updateDateRoute = require("../routes/updateData/nextDateRoute");
 
+//Additional imports for communication with the frontend
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cors({origin: 'http://localhost:3000', credentials:true}));
 app.use(cookieParser());
 
+//database connection options
 const options = ({
     host: 'localhost',
     user: 'root',
@@ -39,6 +41,7 @@ const options = ({
 
 const sessionStore = new MySQLStore(options);
 
+//additional information to be stored in the "data" section of the sessions table, including duration of session
 app.use(session({
     secret: process.env.SECRET,
     resave: false,
@@ -50,6 +53,8 @@ app.use(session({
         maxAge: 86400000 //24 hours in milliseconds. Session expires after 24 hours
     }
 }));
+
+//Leads to the controllers for each route
 
 app.use("/", registerRoute);
 app.use("/", schoolsRoute);

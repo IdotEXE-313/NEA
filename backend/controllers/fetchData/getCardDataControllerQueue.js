@@ -30,5 +30,6 @@ exports.queueCards = async(req, res) => {
 
 exports.getCardQueue = async(req, res) => {
     let cardObject = queue.dequeue();
-    res.send({cardData: cardObject.value});
+    let value = cardObject.value;
+    value !== null ? res.send({cardData: cardObject.value}) : res.send(null);
 }

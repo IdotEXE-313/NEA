@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button';
 const ReviewQueue = () => {
 
     const deckID = useParams();
-    const[cardData, setCardData] = useState([]);
+    const[cardData, setCardData] = useState({});
     const[cardBack, setCardBack] = useState("");
     const[cardFront, setCardFront] = useState("");
     const[revealBack, setRevealBack] = useState(false);
@@ -37,28 +37,40 @@ const ReviewQueue = () => {
     const dequeueCard = async () => {
         await axios.get("http://localhost:3001/card-data-queue")
             .then((res) => {
-                setCardData(res.data.cardData);
-                showCardFront();
-
-                if(cardData !== null){
-                    setCardBack(cardData.value.CardBack); //separate variables since their state needs to differ from their initial values
-                    setCardFront(cardData.value.CardFront);
+                let cardDataRes = res.data.cardData;
+                try{
+                    setCardData(cardDataRes.value);
+                    updateCardValues();
                 }
-                else{
-                    setCardFront("Queue Finished");
-                    setVisiblityReveal("d-none");
+                catch{
+                    endCardUpdate();
                 }
-            })
+            
+        });
+        
+    }
     
+
+    const updateCardValues = () => {
+        setCardBack(cardData.CardBack); //separate variables since their state needs to differ from their initial values
+        setCardFront(cardData.CardFront);
+        showCardFront();
+    }
+
+    const endCardUpdate = () => {
+        setCardFront("Queue Finished");
+        setVisiblityReveal("d-none");
+        setRevealBack(false);
+        setVisibilityOptions("d-none");
     }
 
     const updateCardPriority = async (newPriority) => {
-        await dequeueCard();
+        dequeueCard();
         await axios.post("http://localhost:3001/update-card-priority", {
             withCredentials: true,
             priority: newPriority,
-            deckID: cardData.value.DeckID,
-            cardID: cardData.value.CardID
+            deckID: cardData.DeckID,
+            cardID: cardData.CardID
         });
     }
     
@@ -80,7 +92,7 @@ const ReviewQueue = () => {
         <>
             <NavigationBar />
             <div className={styles.priorityDiv}>
-                {/* Priority: {cardData.value.Priority} */}
+                Priority: {cardData.Priority}
             </div>
             <div className={styles.cardContainer}>
                 <Card className={styles.reviewCard}>
