@@ -13,6 +13,8 @@ const Register = () => {
     const[password, setPassword] = useState("");
     const[school, setSchool] = useState("");
     const[selectedSchool, setSelectedschool] = useState("");
+    const[showSchool, setShowSchool] = useState('school-button');
+    const[placeholder, setPlaceholder] = useState('School Name');
     const[data, setData] = useState([]);
 
     const navigate = useNavigate();
@@ -47,7 +49,12 @@ const Register = () => {
             errHandle(err);
         })
 
+    }
 
+    const handleClick = (urn, schoolName) => {
+        setSelectedschool(urn);
+        setShowSchool('hide-button');
+        setPlaceholder(schoolName);
     }
 
     return(
@@ -64,16 +71,19 @@ const Register = () => {
                     <Form.Control type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlID="formBasicSchool">
-                    <Form.Control type="search" placeholder="School Name" onChange={(e) => setSchool(e.target.value)}/>
+                    <Form.Control type="search" placeholder={placeholder} onChange={(e) => setSchool(e.target.value)}/>
                     <div className='mb-3'>
                         {data.map((data) => {
-                            return( <a href="#" className='school-button' onClick={() => setSelectedschool(data.URN)} key={data.URN}>
+                            return( <a href="#" className={showSchool} onClick={() => handleClick(data.URN, data.EstablishmentName)} key={data.URN}>
                                 {data.EstablishmentName}
                             </a>)
                         })}
                     </div>
                 </Form.Group>
                 <Button variant="primary" type="submit" className="submit-form-button">Register</Button>
+                <div className="loginRedirect">
+                    Already Registered? <a href='/login'>Login</a>
+                </div>
                 </Form>
                 </Card.Body>
             </Card>
