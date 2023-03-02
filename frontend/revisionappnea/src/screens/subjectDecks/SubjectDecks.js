@@ -15,7 +15,7 @@ const SubjectDecks = () => {
     const folderID = useParams();
     const[addDeck, setAddDeck] = useState(false);
     const[deckName, setDeckName] = useState("");
-    const[visibility, setVisibility] = useState("Public");
+    const[visibility, setVisibility] = useState("Private");
     const[deckData, setDeckData] = useState([]);
 
     const navigate = useNavigate();

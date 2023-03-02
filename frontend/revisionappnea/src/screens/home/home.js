@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import './home.css';
+import styles from './home.module.css';
 import NavigationBar from "../../components/navigation/navigationbar";
 import axios from "axios";
 
 const Home = () => {
 
     const username = localStorage.getItem("Username");
-    const[userData, setUserData] = useState([]);
+    const[userSchoolInfo, setUserSchoolInfo] = useState({});
+    const[userSubjectInfo, setUserSubjectInfo] = useState({});
 
     useEffect(() => {
         const getUserData = async () => {
@@ -14,7 +15,12 @@ const Home = () => {
                 withCredentials: true,
                 username: username
             }).then((res) => {
-                setUserData(res.data.schoolName[0][0].EstablishmentName);
+                console.log(res);
+                setUserSchoolInfo({
+                    schoolName: res.data.schoolInfo.schoolName,
+                    schoolID: res.data.schoolInfo.schoolID
+                });
+                setUserSubjectInfo(res.data.subjects);
             })
             .catch((err) => {
                 console.log(err)
@@ -24,15 +30,27 @@ const Home = () => {
     }, [])
 
     return(
-        <>
+        <div>
             <NavigationBar />
-             <div className="main-content-title">
+             <div className={styles.title}>
                 <h1>Hello {username}</h1>    
             </div>
-            <div>
-                Other decks from {userData}
+            <div className={styles.content}>
+                <div className={styles.schoolTitle}>
+                    Other decks from {userSchoolInfo.schoolName}
+                </div>
+                <div>
+                {Object.keys(userSubjectInfo).map((key) => {
+                    return (
+                        <div>
+                            {userSubjectInfo[key].SubjectName}
+                        </div>
+                    )
+                })}
+               
             </div>
-        </>
+            </div>
+        </div>
     )
 }
 

@@ -15,6 +15,7 @@ const ReviewQueue = () => {
     const[revealBack, setRevealBack] = useState(false);
     const[visibilityReveal, setVisiblityReveal] = useState("");
     const[visibilityOptions, setVisibilityOptions] = useState("d-none");
+    const[renderData, setRenderData] = useState(false);
 
 
     useEffect(() => {
@@ -31,16 +32,18 @@ const ReviewQueue = () => {
             })
         }
         queueCards();
-    }, [])
+    }, [renderData]);
 
 
     const dequeueCard = async () => {
         await axios.get("http://localhost:3001/card-data-queue")
             .then((res) => {
                 let cardDataRes = res.data.cardData;
+                setRenderData(true);
                 try{
                     setCardData(cardDataRes.value);
                     updateCardValues();
+                    showCardFront();
                 }
                 catch{
                     endCardUpdate();
@@ -54,7 +57,6 @@ const ReviewQueue = () => {
     const updateCardValues = () => {
         setCardBack(cardData.CardBack); //separate variables since their state needs to differ from their initial values
         setCardFront(cardData.CardFront);
-        showCardFront();
     }
 
     const endCardUpdate = () => {
@@ -62,6 +64,7 @@ const ReviewQueue = () => {
         setVisiblityReveal("d-none");
         setRevealBack(false);
         setVisibilityOptions("d-none");
+        setRenderData(false);
     }
 
     const updateCardPriority = async (newPriority) => {
@@ -100,6 +103,7 @@ const ReviewQueue = () => {
                         <Card.Title>{revealBack ? cardBack : cardFront}</Card.Title>
                     </Card.Body>
                     <Button onClick={showCardBack} className={visibilityReveal}>Reveal Back</Button>
+                    <div className={styles.reviewContainer}>
                     {["Easy", "Good", "Challenging", "Hard"].map((ease, index) => {
                         return(
                             <div className={styles.visibilityContainer}>
@@ -111,6 +115,7 @@ const ReviewQueue = () => {
                             </div>
                         )
             })}
+                    </div>
 
                 </Card>
             </div>

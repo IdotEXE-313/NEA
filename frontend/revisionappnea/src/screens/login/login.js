@@ -47,6 +47,9 @@ const Login = () => {
                     <Form.Control type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
                 </Form.Group>
                 <Button variant="primary" type="submit" className="submit-form-button">Login</Button>
+                <div className="redirectRegister">
+                    Not a user? <a href='/register'>Register</a>
+                </div>
                 </Form>
                 </Card.Body>
             </Card>
