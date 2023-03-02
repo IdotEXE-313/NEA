@@ -1,12 +1,21 @@
 .title{
     text-align: center;
+    font-weight: 700;
+    margin-top: 0.5rem;
 }
 
 .schoolTitle{
-    font-weight: 500;
+    margin-left: 2rem;
+    margin-top: 0.5rem;
+}
+
+.schoolTitle h3{
     font-size: 1.2rem;
+    font-weight: 700;
 }
 
 .content{
+    display: flex;
+    flex-direction: row;
     margin: 2rem;
 }

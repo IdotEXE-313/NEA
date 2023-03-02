@@ -25,6 +25,7 @@ const updateCardPriority = require("../routes/updateData/updatePriority");
 const getUserDataRoute = require("../routes/fetchData/getUserDataRoute");
 const updateDateRoute = require("../routes/updateData/nextDateRoute");
 const getPublicDecks = require("../routes/fetchData/getPublicDecks");
+const getSubjectName = require("../routes/fetchData/getSubjectName");
 
 //Additional imports for communication with the frontend
 app.use(express.urlencoded({extended: true}));
@@ -75,6 +76,7 @@ app.use("/", updateCardPriority);
 app.use("/", getUserDataRoute);
 app.use("/", updateDateRoute);
 app.use("/", getPublicDecks);
+app.use("/", getSubjectName);
 
 
 app.listen(3001, () => console.log("Server is running"));
