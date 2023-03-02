@@ -16,6 +16,7 @@ exports.registerUser = async(req, res) => {
 
     const errorHandle = (err) => {
         const errorName = err.code;
+        console.log(errorName);
 
         switch(errorName){
             case('ER_BAD_NULL_ERROR'):

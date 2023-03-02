@@ -2,24 +2,26 @@ const db = require("../../database/connection");
 
 //need deckId generated and schoolid
 exports.addDeck = async (req, res) => {
-    const{deckName, folderID, visibility, deckID} = req.body;
+    const{deckName, folderID, visibility, deckID, username} = req.body;
 
-    const getSchoolID = async () => {
-        await db.query("SELECT SchoolID FROM users, folders WHERE folders.FolderID = ? AND folders.UserID = users.UserID", [folderID])
+    const getSchoolAndUserID = async () => {
+        await db.query("SELECT SchoolID, users.UserID FROM users, folders WHERE users.username = ? AND folders.FolderID = ? AND folders.UserID = users.UserID", [username,folderID])
             .then((response) => {
-                insertData(response[0][0].SchoolID);
+                insertData(response[0][0]);
             })
             .catch((error) => {
                 console.log(error);
             })
     }
 
-    const insertData = async (schoolID) => {
+    const insertData = async (response) => {
 
-        await db.query(`INSERT INTO decks (DeckID, DeckName, FolderID, SchoolID, Visibility) VALUES (?, ?, ?, ?, ?)`, 
-        [deckID, deckName, folderID, schoolID, visibility]);
+        const {UserID, SchoolID} = response;
+
+        await db.query(`INSERT INTO decks (DeckID, DeckName, FolderID, SchoolID, Visibility, UserID) VALUES (?, ?, ?, ?, ?, ?)`, 
+        [deckID, deckName, folderID, SchoolID, visibility, UserID]);
     }
 
-    await getSchoolID();
+    await getSchoolAndUserID();
 
 }

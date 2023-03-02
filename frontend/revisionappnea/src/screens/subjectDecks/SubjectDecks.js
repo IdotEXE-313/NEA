@@ -17,6 +17,7 @@ const SubjectDecks = () => {
     const[deckName, setDeckName] = useState("");
     const[visibility, setVisibility] = useState("Private");
     const[deckData, setDeckData] = useState([]);
+    const username = localStorage.getItem("Username");
 
     const navigate = useNavigate();
 
@@ -42,7 +43,8 @@ const SubjectDecks = () => {
             deckID: deckID,
             folderID: folderID.folderid,
             deckName: deckName,
-            visibility: visibility
+            visibility: visibility,
+            username: username
         })
     }
 
