@@ -29,3 +29,34 @@
     justify-content: flex-end;
 }
 
+.hideDiv{
+    display: none;
+}
+
+.addDeckDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 50%;
+    text-align: center;
+}
+
+.addDeckDiv p{
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
+.title{
+    display: flex;
+    justify-content: center;
+}
+
+.content {
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 2rem;
+}
+

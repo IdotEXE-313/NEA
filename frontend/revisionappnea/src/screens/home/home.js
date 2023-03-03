@@ -116,7 +116,7 @@ const Home = () => {
                                         <Card.Title>{value[index].DeckName}</Card.Title>
                                         <Card.Text>Subject: {subjectName}</Card.Text>
                                     </Card.Body>
-                                    <Button onClick={() => navigate(`/subjects/${value[index].FolderID}/${value[index].DeckID}`)}>Go To Deck</Button>
+                                    <Button onClick={() => navigate(`/subjects/${value[index].FolderID}/${value[index].DeckID}?direct=false`)}>Go To Deck</Button>
                                 </Card>
                             </div>
                     )
