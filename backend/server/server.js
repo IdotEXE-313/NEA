@@ -28,6 +28,7 @@ const getPublicDecks = require("../routes/fetchData/getPublicDecks");
 const getSubjectName = require("../routes/fetchData/getSubjectName");
 const getCardData = require("../routes/fetchData/getCardData");
 const deleteCardData = require("../routes/deleteData/deleteCard");
+const sendText = require("../routes/api/sendText");
 
 //Additional imports for communication with the frontend
 app.use(express.urlencoded({extended: true}));
@@ -81,6 +82,7 @@ app.use("/", getPublicDecks);
 app.use("/", getSubjectName);
 app.use("/", getCardData);
 app.use("/", deleteCardData);
+app.use("/", sendText);
 
 
 app.listen(3001, () => console.log("Server is running"));

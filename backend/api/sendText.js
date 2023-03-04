@@ -1,0 +1,26 @@
+//Credit to twilio documentation for providing a general structure for how to send a text. Found at https://www.twilio.com/docs/libraries/node
+
+const accountSID = process.env.ACCOUNTSID;
+const authToken = process.env.AUTHTOKEN;
+const twilio = require("twilio")(accountSID, authToken);
+require("dotenv").config();
+
+exports.sendText = async(req, res) => {
+
+    const message = req.body.message;
+
+    const sendText = async() => {
+        await twilio.messages.create({
+            body: message,
+            to: process.env.TARGETNUMBER,
+            from: '+447361584520'
+        })
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    }
+    await sendText();
+}

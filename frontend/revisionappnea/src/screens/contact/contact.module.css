@@ -1,0 +1,25 @@
+.title{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.textBox{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    height: 60vh;
+}
+
+.content{
+    text-align: center;
+    justify-content: center;
+    margin: 0 2rem;
+}
+
+.input{
+    height: 15.625rem;
+    width: 15.625rem;
+    border: 2px solid black;
+}
