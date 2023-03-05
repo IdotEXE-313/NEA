@@ -62,7 +62,7 @@ const Deck = () => {
                 <div className={isDirect === "false" ? styles.addDeckDiv : styles.hideDiv}>
                     <p>You need to add this deck before reviewing or making changes. If you have already added this deck, access the deck through 'Your Subjects'</p>
                     <div className={styles.cardOptions}>
-                        <Button onClick={() => navigate(`/subjects/view-cards/${deckID.deckid}/`)}>View Cards</Button>
+                        <Button onClick={() => navigate(`/subjects/view-cards/${deckID.deckid}/?direct=false`)}>View Cards</Button>
                         <Button>Add Deck</Button>
                     </div>
                 </div>

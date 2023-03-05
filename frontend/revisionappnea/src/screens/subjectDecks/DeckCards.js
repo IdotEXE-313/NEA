@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import Card from 'react-bootstrap/Card';
 import Button from "react-bootstrap/esm/Button";
 import styles from './deck.module.css';
@@ -11,6 +11,8 @@ const DeckCards = () => {
 
     const[cards, setCards] = useState({});
     const deckID = useParams();
+    const [direct] = useSearchParams();
+    const isDirect = direct.get("direct");
 
     useEffect(() => {
         const getCardData = async() => {
@@ -52,8 +54,10 @@ const DeckCards = () => {
                             <Card.Body>
                                 <Card.Text>Front: {cards[key].CardFront}</Card.Text>
                                 <Card.Text>Back: {cards[key].CardBack}</Card.Text>
-                                <Button onClick={() => handleDelete(cards[key].CardID)}>Delete</Button>
-                                <Button>Edit</Button>
+                                <div className={isDirect === "false" ? styles.hideDiv : ""}>
+                                    <Button onClick={() => handleDelete(cards[key].CardID)}>Delete</Button>
+                                    <Button>Edit</Button>
+                                </div>
                             </Card.Body>
                         </Card>
                     )

@@ -1,12 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styles from './home.module.css';
 import NavigationBar from "../../components/navigation/navigationbar";
 import axios from "axios";
 import InternalDecks from "../../components/internalDecks/InternalDecks";
 import PublicDecks from "../../components/publicDecks/PublicDecks";
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
 
 const Home = () => {
 
@@ -16,7 +13,6 @@ const Home = () => {
     const[userID, setUserID] = useState("");
     const[internalDecks, setInternalDecks] = useState({});
     const[publicDecks, setPublicDecks] = useState({});
-    const navigate = useNavigate();
     const finished = useRef(false);
 
     useEffect(() => {
