@@ -15,6 +15,6 @@
     "twilio": "^4.8.0"
   },
   "scripts": {
-    "start": "set NODE_ENV=dev && node Server/server.js"
+    "start": "set NODE_ENV=dev && nodemon Server/server.js"
   }
 }

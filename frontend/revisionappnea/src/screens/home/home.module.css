@@ -5,6 +5,7 @@
 }
 
 .schoolTitle{
+    
     margin-left: 2rem;
     margin-top: 0.5rem;
 }
@@ -18,4 +19,6 @@
     display: flex;
     flex-direction: row;
     margin: 2rem;
+    flex-wrap: wrap;
 }
+

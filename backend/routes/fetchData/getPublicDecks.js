@@ -4,6 +4,6 @@ const controller = require("../../controllers/fetchData/getPublicDecksController
 
 router
     .route("/public-decks/")
-    .post(controller.getPublicDecks)
+    .post(controller.publicDecks)
 
 module.exports = router;

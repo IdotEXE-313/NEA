@@ -11,12 +11,10 @@ const Contact = () => {
     const[sendSuccess, setSendSuccess] = useState("Submit Message");
 
     const sendMessage = async() => {
+        setSendSuccess("Message Sent");
         await axios.post("http://localhost:3001/send-text", {
             withCredentials: true,
             message: message
-        })
-        .then(() => {
-            setSendSuccess("Message Sent!");
         })
         .catch((err) => {
             console.log(err);

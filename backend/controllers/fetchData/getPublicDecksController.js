@@ -1,22 +1,22 @@
 const db = require("../../database/connection");
 
-exports.getPublicDecks = async (req, res) => {
-    const {SchoolID, SubjectID, UserID} = req.body;
+exports.publicDecks = async(req, res) => {
 
-    console.log(UserID);
+    const{UserID, SchoolID, SubjectID} = req.body;
 
-   const getInternalDecks = async () => {
-        await db.query(`SELECT folders.FolderID, DeckID, DeckName
-                        FROM decks, folders
-                        WHERE decks.SchoolID = ?
-                        AND decks.visibility = 'Internal'
+    const getPublicDecks = async() => {
+        await db.query(`SELECT DeckName, DeckID, FolderID, SubjectName
+                        FROM decks, subjectsavailable
+                        WHERE decks.SubjectID = ?
+                        AND decks.SchoolID <> ?
+                        AND decks.visibility = 'Public'
                         AND decks.UserID <> ?
-                        AND folders.SubjectID = ?`,
-                        [SchoolID, UserID, SubjectID])
+                        AND subjectsavailable.SubjectID = ? `,
+                        [SubjectID, SchoolID, UserID, SubjectID ])
             .then((response) => {
                 res.send(response);
             })
-   }
+    }
 
-   await getInternalDecks();
+    await getPublicDecks();
 }
