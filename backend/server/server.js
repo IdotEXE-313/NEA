@@ -30,6 +30,7 @@ const deleteCardData = require("../routes/deleteData/deleteCard");
 const sendText = require("../routes/api/sendText");
 const getInternalDecks = require("../routes/fetchData/getInternalDecks");
 const getPublicDecks = require("../routes/fetchData/getPublicDecks");
+const getCardInfo = require("../routes/fetchData/getCardInfo");
 
 //Additional imports for communication with the frontend
 app.use(express.urlencoded({extended: true}));
@@ -85,5 +86,6 @@ app.use("/", deleteCardData);
 app.use("/", sendText);
 app.use("/", getInternalDecks);
 app.use("/", getPublicDecks);
+app.use("/", getCardInfo);
 
 app.listen(3001, () => console.log("Server is running"));

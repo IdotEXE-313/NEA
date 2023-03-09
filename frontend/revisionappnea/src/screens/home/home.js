@@ -95,9 +95,6 @@ const Home = () => {
             invokeGetInternalDecks();
             invokeGetPublicDecks();
         }
-
-
-
     }, [userSubjectInfo]);
 
 

@@ -6,6 +6,8 @@ import Card from 'react-bootstrap/Card';
 import Button from "react-bootstrap/esm/Button";
 import styles from './deck.module.css';
 import NavigationBar from "../../components/navigation/navigationbar";
+import { Backdrop } from "@mui/material";
+import Form from 'react-bootstrap/Form';
 
 const DeckCards = () => {
 
@@ -13,6 +15,8 @@ const DeckCards = () => {
     const deckID = useParams();
     const [direct] = useSearchParams();
     const isDirect = direct.get("direct");
+    const[cardData, setCardData] = useState({});
+    const[editCard, setEditCard] = useState(false);
 
     useEffect(() => {
         const getCardData = async() => {
@@ -40,6 +44,19 @@ const DeckCards = () => {
         })
     }
 
+    const handleEditRequest = async(CardID) => {
+        await axios.post("http://localhost:3001/card-info", {
+            withCredentials: true,
+            CardID: CardID
+        })
+        .then((res) => {
+            if(res.data){
+                setCardData(res.data[0]);
+                setEditCard(true);
+            }
+        })
+    }
+
     return (
         <>
             <NavigationBar />
@@ -50,18 +67,28 @@ const DeckCards = () => {
                 {Object.keys(cards).map((key) => {
                     return (
                         <Card style={{width: '18rem', textAlign: 'center'}}>
-                        {console.log(cards)}
                             <Card.Body>
                                 <Card.Text>Front: {cards[key].CardFront}</Card.Text>
                                 <Card.Text>Back: {cards[key].CardBack}</Card.Text>
                                 <div className={isDirect === "false" ? styles.hideDiv : ""}>
                                     <Button onClick={() => handleDelete(cards[key].CardID)}>Delete</Button>
-                                    <Button>Edit</Button>
+                                    <Button onClick={() => handleEditRequest(cards[key].CardID)}>Edit</Button>
                                 </div>
                             </Card.Body>
                         </Card>
                     )
                 })}
+                <Backdrop open={editCard} sx={{zIndex: 1}}>
+                    <Card style={{width: '18rem', textAlign: 'center'}}>
+                        <Card.Body>
+                            <Card.Title>Edit Card</Card.Title>
+                            <Form.Group>
+                                <Form.Label>Front: </Form.Label>
+                                <Form.Control type="text" placeholder={cardData.CardFront}></Form.Control>
+                            </Form.Group>
+                        </Card.Body>
+                    </Card>
+                </Backdrop>
             </div>
         </>
     )

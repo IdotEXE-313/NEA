@@ -13,14 +13,22 @@ exports.sendText = async(req, res) => {
         await twilio.messages.create({
             body: message,
             to: process.env.TARGETNUMBER,
-            from: '+447361584520'
+            from: '+447361584520' //Twilio account phone number. 
         })
-        .then((response) => {
-            console.log(response);
+        .then(() => {
+            res.send({isSent: true});
         })
         .catch((err) => {
             console.log(err);
         })
     }
-    await sendText();
+
+    if(typeof(message) != "undefined"){
+        if(!(message.length < 20 || message.length > 160)){
+            await sendText();
+        }
+    }
+    else{
+        res.send({isSent: false});
+    }
 }

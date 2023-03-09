@@ -23,3 +23,7 @@
     width: 15.625rem;
     border: 2px solid black;
 }
+
+.lengthWarning {
+    margin-bottom: 0.5rem;
+}

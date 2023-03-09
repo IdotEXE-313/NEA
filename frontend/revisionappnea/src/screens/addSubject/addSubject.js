@@ -12,20 +12,40 @@ const AddSubject = () => {
     const[subjects, setSubjects] = useState([]);
     const[open, setOpen] = useState(false);
     const[subject, setSubject] = useState("");
+    const[addSubjectStatus, setAddSubjectStatus] = useState("");
+    const username = localStorage.getItem("Username");
+
 
     const handleOpen = (event) => {
         setOpen(true);
         setSubject(event.target.value);
 
     }
-    const handleClose = () => setOpen(false);
+    const handleClose = () => {
+        setOpen(false);
+        setAddSubjectStatus("");
+    }
 
     const addSubject = async() => {
-        handleClose();
         await axios.post("http://localhost:3001/insert-subject", {
             withCredentials: true,
-            subjectName: subject
-        });
+            subjectName: subject,
+            username: username
+        })
+        .then((res) => {
+            const isInserted = res.data.dataInserted;
+
+            //subject has been successfully added, so we close the overlay
+            if(isInserted){
+                handleClose();
+            }
+            else{
+                setAddSubjectStatus("Cannot Add The Same Subject More Than Once");
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        })
 
     }
 
@@ -33,7 +53,6 @@ const AddSubject = () => {
         const fetchSubjects = async () => {
             await axios.get("http://localhost:3001/get-subjects", {withCredentials: true})
                 .then((res) => {
-                    console.log(res)
                     setSubjects(res.data.subjectData[0]);
                 })
                 .catch((err) => {
@@ -66,8 +85,11 @@ const AddSubject = () => {
                         Add {subject} To Your Subjects?
                     </Card.Title>
                     <div className="buttons-container">
-                        <Button className="select-button" variant="info" onClick={addSubject}>Yes</Button>
-                        <Button className="select-button" variant="info" onClick={handleClose}>No</Button>
+                        <Button className="select-button" variant="info" onClick={() => addSubject()}>Yes</Button>
+                        <Button className="select-button" variant="info" onClick={() => handleClose()}>No</Button>
+                    </div>
+                    <div className="duplicate">
+                        {addSubjectStatus}
                     </div>
                 </Card>
             </Backdrop>

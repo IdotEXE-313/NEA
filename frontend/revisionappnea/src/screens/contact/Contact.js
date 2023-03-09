@@ -9,12 +9,20 @@ const Contact = () => {
 
     const [message, setMessage] = useState(null);
     const[sendSuccess, setSendSuccess] = useState("Submit Message");
+    const[lengthWarning, setLengthWarning] = useState("");
 
     const sendMessage = async() => {
-        setSendSuccess("Message Sent");
         await axios.post("http://localhost:3001/send-text", {
             withCredentials: true,
             message: message
+        })
+        .then((res) => {
+            if(res.data.isSent){
+                setSendSuccess("Message Sent");
+            }
+            else{
+                setLengthWarning("Message must be between 20 and 160 characters long");
+            }
         })
         .catch((err) => {
             console.log(err);
@@ -33,6 +41,9 @@ const Contact = () => {
                 <form className={styles.textBox}>
                     <textarea className={styles.input} onChange={(e) => setMessage(e.target.value)}></textarea>
                 </form>
+                <div className={styles.lengthWarning}>
+                    {lengthWarning}
+                </div>
                 <Button onClick={sendMessage}>{sendSuccess}</Button>
             </div>
             </div>
