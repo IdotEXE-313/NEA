@@ -17,6 +17,7 @@ const SubjectDecks = () => {
     const[deckName, setDeckName] = useState("");
     const[visibility, setVisibility] = useState("Private");
     const[deckData, setDeckData] = useState([]);
+    const[changeVariant, setChangeVariant] = useState("");
     const username = localStorage.getItem("Username");
 
     const navigate = useNavigate();
@@ -48,12 +49,22 @@ const SubjectDecks = () => {
         })
     }
 
+    const handleClick = (value) => {
+        setVisibility(value);
+        setChangeVariant(value);
+    }
+
+    const handleClose = () => {
+        setAddDeck(true);
+        setChangeVariant("");
+    }
+
     return(
         <>
             <NavigationBar />
             <div className={styles.addDeck}>
                 <h1>Decks</h1>
-                <Button onClick = {() => setAddDeck(true)}>Add Deck</Button>
+                <Button onClick = {() => handleClose()}>Add Deck</Button>
             </div>
             <Backdrop open={addDeck} sx={{zIndex: 1}}>
                 <Card className={styles.card}>
@@ -64,13 +75,15 @@ const SubjectDecks = () => {
                     <Form.Group>
                         <Form.Control type="text" onChange={(e) => setDeckName(e.target.value)} placeholder="Deck Name"></Form.Control>
                     </Form.Group>
-                        {["Public", "Internal", "Private"].map((visible) => {
+                    <div className={styles.buttonDiv}>
+                    {["Public", "Internal", "Private"].map((visible) => {
                             return(
                                 <div className={styles.visibleButtons}>
-                                    <Button value={visible} variant="outline-primary" onClick={(e) => setVisibility(e.target.value)}>{visible}</Button>
+                                    <Button value={visible} variant={changeVariant === visible ? "primary" : "outline-primary"} onClick={(e) => handleClick(e.target.value)}>{visible}</Button>
                                 </div>
                             )
                         })}
+                    </div>
                     <Button onClick={handleSubmit}>Add Deck</Button>
                 </Card>
             </Backdrop>

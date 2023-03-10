@@ -5,17 +5,25 @@ import Button from "react-bootstrap/esm/Button";
 import axios from "axios";
 import styles from './Subjects.module.css';
 import { useNavigate } from "react-router-dom";
+import CloseButton from "react-bootstrap/esm/CloseButton";
+import { Backdrop } from "@mui/material";
+
 
 const Subjects = () => {
 
     const[subjects, setSubjects] = useState([]);
+    const[userID, setUserID] = useState();
     const navigate = useNavigate();
+    const[deleteSubject, setDeleteSubject] = useState(false);
 
     useEffect(() => {
         const getSubjectsTaken = async () => {
             await axios.get("http://localhost:3001/subjects-taken", {withCredentials: true})
                 .then((res) => {
-                    setSubjects(res.data.subjectsTaken[0]);
+                    const subjectsTaken = res.data.subjectsTaken[0];
+                    const userID = res.data.UserID;
+                    setSubjects(subjectsTaken);
+                    setUserID(userID);
                 })
                 .catch((err) => {
                     console.log(err);
@@ -23,6 +31,18 @@ const Subjects = () => {
         }
         getSubjectsTaken();
     }, []);
+
+    const handleDelete = async(folderID, userID) => {
+        await axios.post("http://localhost:3001/delete-subject", {
+            withCredentials: true,
+            FolderID: folderID,
+            UserID: userID
+        })
+        .then((res) => {
+            window.location.reload(false);
+            console.log(res);
+        })
+    }
 
     return(
         <>
@@ -34,13 +54,30 @@ const Subjects = () => {
                 {subjects.map((subject) => {
                     return(
                         <Card className={styles.subjectCard}>
+                            <CloseButton onClick={() => setDeleteSubject(true)} className={styles.subjectDelete} />
                             <Card.Body>
                                 <Card.Title>{subject.SubjectName}</Card.Title>
                             </Card.Body>
                             <Button onClick={(() => navigate(`/subjects/${subject.FolderID}`))}>Decks</Button>
+                            <Backdrop open={deleteSubject}>
+                                <Card>
+                                    <Card.Body>
+                                        <Card.Title>Are you sure you want to delete {subject.SubjectName}?</Card.Title>
+                                        <Card.Text>All decks and cards will be lost</Card.Text>
+                                        <div className={styles.selectButton}>
+                                            <Button onClick={() => handleDelete(subject.FolderID, userID)}>Yes</Button>
+                                            <Button onClick={() => setDeleteSubject(false)}>No</Button>
+                                        </div>
+                                    </Card.Body>
+                                </Card>
+                            </Backdrop>
                         </Card>
+                        
                     )
                 })}
+                <div>
+                   
+                </div>
             </div>
         </>
     )

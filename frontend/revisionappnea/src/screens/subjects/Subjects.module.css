@@ -16,3 +16,19 @@
     text-align: center;
     padding: 1rem 0;
 }
+
+.subjectDelete {
+    position: absolute;
+    right: 0;
+}
+
+.selectButton{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.selectButton > button{
+    width: 50%;
+    margin: 0.2rem;
+}
