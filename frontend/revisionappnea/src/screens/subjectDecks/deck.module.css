@@ -65,3 +65,17 @@
     display: flex;
 }
 
+.button{
+    margin: 0.2rem;
+}
+
+.closeButton{
+    position: absolute;
+    right: 0;
+}
+
+.submitButton {
+    text-align: center;
+}
+
+

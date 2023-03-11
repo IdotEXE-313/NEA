@@ -83,8 +83,9 @@ const DeckCards = () => {
                         <Card.Body>
                             <Card.Title>Edit Card</Card.Title>
                             <Form.Group>
-                                <Form.Label>Front: </Form.Label>
-                                <Form.Control type="text" placeholder={cardData.CardFront}></Form.Control>
+                                <Form.Control type="text" placeholder="Front"></Form.Control>
+                                <Form.Control type="text" placeholder="Back"></Form.Control>
+                                <Button>Submit Edits</Button>
                             </Form.Group>
                         </Card.Body>
                     </Card>

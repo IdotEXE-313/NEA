@@ -14,13 +14,30 @@ exports.getCardData = async(req, res) => {
         });
     }
 
+    const getNextReviewDate = async() => {
+        await db.query(`SELECT NextReviewDate FROM card
+                        WHERE card.DeckID = ?
+                        ORDER BY NextReviewDate ASC`,
+                        [deckID])
+            .then((response) => {
+                res.send({noData: true, nextDate: response[0][0]});
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
+
     await db.query(`SELECT DATE_FORMAT(card.NextReviewDate, ?), CardID, CardFront, CardBack FROM card, decks 
                     WHERE decks.DeckID = ? AND card.DeckID = ?
                     AND DATE(card.NextReviewDate) <= CURDATE()`, ['%Y-%m-%d', deckID, deckID])
         .then((response) => {
             //  receives response in form {CardFront:, CardBack:}
-            addToStack(response[0]);
-            res.sendStatus(200);
+            if(response[0].length > 0){
+                addToStack(response[0]);
+            }
+            else{
+                getNextReviewDate();
+            }
         })
         .catch((err) => {
             console.log(err);

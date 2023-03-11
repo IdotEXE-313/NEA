@@ -59,7 +59,7 @@ const Subjects = () => {
                                 <Card.Title>{subject.SubjectName}</Card.Title>
                             </Card.Body>
                             <Button onClick={(() => navigate(`/subjects/${subject.FolderID}`))}>Decks</Button>
-                            <Backdrop open={deleteSubject}>
+                            <Backdrop open={deleteSubject} sx={{zIndex: 1}}>
                                 <Card>
                                     <Card.Body>
                                         <Card.Title>Are you sure you want to delete {subject.SubjectName}?</Card.Title>
@@ -75,9 +75,6 @@ const Subjects = () => {
                         
                     )
                 })}
-                <div>
-                   
-                </div>
             </div>
         </>
     )

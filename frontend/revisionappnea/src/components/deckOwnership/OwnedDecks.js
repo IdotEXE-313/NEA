@@ -16,6 +16,7 @@ const OwnedDecks = (props) => {
     const[addCard, setAddCard] = useState(false);
     const[cardFront, setCardFront] = useState("");
     const[cardBack, setCardBack] = useState("");
+    const[errMessage, setErrMessage] = useState("");
 
     const submitCard = async () => {
         setAddCard(false);
@@ -53,7 +54,10 @@ const OwnedDecks = (props) => {
                                 <Form.Group>
                                     <Form.Control type="text" onChange={(e) => setCardBack(e.target.value)} placeholder="Back of Card"></Form.Control>
                                 </Form.Group>
-                                <Button onClick={submitCard}>Add Card</Button>
+                                <div>
+                                    {errMessage}
+                                </div>
+                                <Button onClick={() => {cardFront.length !== 0 || cardBack.length !== 0 ? submitCard() : setErrMessage("Cannot Submit a Blank Field")}}>Add Card</Button>
                             </div>
                         </Card>
                         </Backdrop>

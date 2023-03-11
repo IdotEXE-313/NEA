@@ -13,11 +13,14 @@ import axios from "axios";
 const SubjectDecks = () => {
 
     const folderID = useParams();
+    const[deckID, setDeckID] = useState("");
     const[addDeck, setAddDeck] = useState(false);
     const[deckName, setDeckName] = useState("");
     const[visibility, setVisibility] = useState("Private");
     const[deckData, setDeckData] = useState([]);
     const[changeVariant, setChangeVariant] = useState("");
+    const[errMessage, setErrMessage] = useState("");
+    const[deleteDeck, setDeleteDeck] = useState(false);
     const username = localStorage.getItem("Username");
 
     const navigate = useNavigate();
@@ -37,8 +40,6 @@ const SubjectDecks = () => {
 
     const handleSubmit = async () => {
         const deckID = Math.floor(Math.random() + Date.now());
-        setAddDeck(false);
-        window.location.reload(false);
         await axios.post("http://localhost:3001/add-deck", {
             withCredentials: true,
             deckID: deckID,
@@ -47,6 +48,34 @@ const SubjectDecks = () => {
             visibility: visibility,
             username: username
         })
+        .then((res) => {
+            console.log(res);
+            if(res.data.inserted){
+                window.location.reload(false);
+                setAddDeck(false);
+            }
+            else{
+                setErrMessage("Cannot have a blank deck name");
+            }
+        })
+    }
+
+    const handleDeckDeleteRequest = async() => {
+        await axios.post("http://localhost:3001/delete-deck", {
+            withCredentials: true,
+            FolderID: folderID.folderid,
+            DeckID: deckID
+        })
+        .then((res) => {
+            console.log(res);
+            if(res.data.delete){
+                setDeleteDeck(false);
+                window.location.reload(false);
+            }
+            else{
+                setErrMessage("Try again later");
+            }
+        })
     }
 
     const handleClick = (value) => {
@@ -54,9 +83,21 @@ const SubjectDecks = () => {
         setChangeVariant(value);
     }
 
-    const handleClose = () => {
+    const handleOpen = () => {
         setAddDeck(true);
         setChangeVariant("");
+    }
+
+    const handleClose = () => {
+        setErrMessage("");
+        setAddDeck(false);
+        setDeckName("");
+    }
+
+    const handleDeleteDeckClick = (DeckName, DeckID) => {
+        setDeleteDeck(true);
+        setDeckName(DeckName);
+        setDeckID(DeckID);
     }
 
     return(
@@ -64,12 +105,12 @@ const SubjectDecks = () => {
             <NavigationBar />
             <div className={styles.addDeck}>
                 <h1>Decks</h1>
-                <Button onClick = {() => handleClose()}>Add Deck</Button>
+                <Button onClick = {() => handleOpen()}>Add Deck</Button>
             </div>
             <Backdrop open={addDeck} sx={{zIndex: 1}}>
                 <Card className={styles.card}>
                     <div className={styles.closeButtonDiv}>
-                        <CloseButton onClick={() => setAddDeck(false)} className={styles.closeButton} />
+                        <CloseButton onClick={() => handleClose()} className={styles.closeButton} />
                     </div>
                     <Card.Title>Add a Deck</Card.Title>
                     <Form.Group>
@@ -84,21 +125,41 @@ const SubjectDecks = () => {
                             )
                         })}
                     </div>
+                    {errMessage}
                     <Button onClick={handleSubmit}>Add Deck</Button>
                 </Card>
             </Backdrop>
             <div className={styles.subjectContainer}>
                 {deckData.map((deckName) => {
                     return (
+                        <>
                         <Card key={deckName.DeckID} className={styles.subjectCard}> 
+                            <div className={styles.cardClose}>
+                                <CloseButton onClick={() => handleDeleteDeckClick(deckName.DeckName, deckName.DeckID)}/>
+                            </div>
                             <Card.Body>
                                 <Card.Title>{deckName.DeckName}</Card.Title>
                             </Card.Body>
                             <Button onClick={() => navigate(`/subjects/${folderID.folderid}/${deckName.DeckID}`)}>Go To Deck</Button>
                         </Card>
+                        </>
                     )
                 })}
             </div>
+            <>
+            <Backdrop open={deleteDeck} sx={{zIndex: 1}}>
+            <Card>
+                <Card.Body>
+                    <Card.Title>Are You Sure You Want To Delete {deckName}?</Card.Title>
+                    <Card.Text style={{textAlign: 'center'}}>All Cards Will Be Lost!</Card.Text>
+                    <div className={styles.deleteDeckButtons}>
+                        <Button onClick={() => handleDeckDeleteRequest()}>Yes</Button>
+                        <Button onClick={() => setDeleteDeck(false)}>No</Button>
+                    </div>
+                </Card.Body>
+            </Card>
+            </Backdrop>
+        </>
 
         </>
     )

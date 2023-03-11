@@ -27,4 +27,9 @@
     justify-content: center;
 }
 
+.easeButtons{
+    display: flex;
+    justify-content: space-between;
+}
+
 

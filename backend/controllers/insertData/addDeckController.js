@@ -19,9 +19,20 @@ exports.addDeck = async (req, res) => {
         const {UserID, SchoolID, SubjectID} = response;
 
         await db.query(`INSERT INTO decks (DeckID, DeckName, FolderID, SchoolID, Visibility, UserID, SubjectID) VALUES (?, ?, ?, ?, ?, ?, ?)`, 
-        [deckID, deckName, folderID, SchoolID, visibility, UserID, SubjectID]);
+        [deckID, deckName, folderID, SchoolID, visibility, UserID, SubjectID])
+        .then(() => {
+            res.send({inserted: true});
+        })
+        .catch((err) => {
+            console.log(err);
+        })
     }
 
-    await getSchoolAndUserID();
+    if((deckName.length > 0)){
+        await getSchoolAndUserID();
+    }
+    else{
+        res.send({inserted: false});
+    }
 
 }

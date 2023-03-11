@@ -47,3 +47,18 @@
     display: flex;
     justify-content: space-between;
 }
+
+.cardClose{
+    position: absolute;
+    right: 0;
+}
+
+.deleteDeckButtons{
+    display: flex;
+    justify-content: space-between;
+}
+
+.deleteDeckButtons > button{
+    width: 50%;
+    margin: 0.2rem;
+}
