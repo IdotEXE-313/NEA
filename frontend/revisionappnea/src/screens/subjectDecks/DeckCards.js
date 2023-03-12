@@ -8,6 +8,7 @@ import styles from './deck.module.css';
 import NavigationBar from "../../components/navigation/navigationbar";
 import { Backdrop } from "@mui/material";
 import Form from 'react-bootstrap/Form';
+import CloseButton from "react-bootstrap/esm/CloseButton";
 
 const DeckCards = () => {
 
@@ -15,8 +16,11 @@ const DeckCards = () => {
     const deckID = useParams();
     const [direct] = useSearchParams();
     const isDirect = direct.get("direct");
-    const[cardData, setCardData] = useState({});
     const[editCard, setEditCard] = useState(false);
+    const[cardFront, setCardFront] = useState("");
+    const[cardID, setCardID] = useState("");
+    const[errMessage, setErrMessage] = useState("");
+    const[cardBack, setCardBack] = useState("");
 
     useEffect(() => {
         const getCardData = async() => {
@@ -45,14 +49,25 @@ const DeckCards = () => {
     }
 
     const handleEditRequest = async(CardID) => {
-        await axios.post("http://localhost:3001/card-info", {
+        
+        setCardID(CardID);
+        setEditCard(true);
+    }
+
+    const submitEdit = async() => {
+        await axios.post("http://localhost:3001/edit-card", {
             withCredentials: true,
-            CardID: CardID
+            CardFront: cardFront,
+            CardBack: cardBack,
+            CardID: cardID
         })
         .then((res) => {
-            if(res.data){
-                setCardData(res.data[0]);
-                setEditCard(true);
+            if(res.data.edited){
+                setEditCard(false);
+                window.location.reload(false);
+            }
+            else{
+                setErrMessage("Ensure your edit is between 0 and 255 characters and try again");
             }
         })
     }
@@ -80,13 +95,23 @@ const DeckCards = () => {
                 })}
                 <Backdrop open={editCard} sx={{zIndex: 1}}>
                     <Card style={{width: '18rem', textAlign: 'center'}}>
+                    <div className={styles.closeButton}>
+                            <CloseButton onClick={() => setEditCard(false)}/>
+                        </div>
                         <Card.Body>
-                            <Card.Title>Edit Card</Card.Title>
-                            <Form.Group>
-                                <Form.Control type="text" placeholder="Front"></Form.Control>
-                                <Form.Control type="text" placeholder="Back"></Form.Control>
-                                <Button>Submit Edits</Button>
+                        <div>
+                        <Card.Title>Edit Card</Card.Title>
+                            <Form.Group className={styles.form}>
+                                <Form.Control type="text" placeholder="Front" onChange={(e) => setCardFront(e.target.value)}></Form.Control>
                             </Form.Group>
+                            <Form.Group className={styles.form}>
+                                <Form.Control type="text" placeholder="Back" onChange={(e) => setCardBack(e.target.value)}></Form.Control>
+                            </Form.Group>
+                            <Button onClick={() => submitEdit()}>Submit Edits</Button>
+                            <div>   
+                                {errMessage}
+                            </div>
+                        </div>
                         </Card.Body>
                     </Card>
                 </Backdrop>

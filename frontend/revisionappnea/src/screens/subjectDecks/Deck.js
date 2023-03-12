@@ -61,7 +61,7 @@ const Deck = () => {
             <div className={styles.container}>
                 <div className={styles.deckName}>
                     <h3>{deckName}</h3>
-                        <div className={styles.deckVisibility}>
+                        <div className={isDirect === "false" ? styles.hideDiv : styles.deckVisibility}>
                             <Button onClick={() => setEditDeckVisibility(true)}>Edit Visibility</Button>
                         </div>
                 </div>

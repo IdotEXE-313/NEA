@@ -5,7 +5,8 @@ const options = ({
     host: 'localhost',
     user: 'root',
     database: 'revisionapp',
-    password: process.env.PASSWORD
+    password: process.env.PASSWORD,
+    multipleStatements: true
 });
 
 const connection = mysql.createPool(options);

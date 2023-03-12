@@ -15,12 +15,17 @@ exports.getUserData = async (req, res) => {
             let userID = userIDRes[0][0].UserID;
             await db.query("SELECT EstablishmentName, URN FROM users, schools WHERE users.UserID = ? AND users.SchoolID = schools.URN",[userID])
                 .then(async(response) => {
-                    let {EstablishmentName, URN} = response[0][0];
-                    await getSubjectsTaken(EstablishmentName, URN);
+                    if(response[0][0]){
+                        let {EstablishmentName, URN} = response[0][0];
+                        await getSubjectsTaken(EstablishmentName, URN);
+                    }
+                    else{
+                        await getSubjectsTaken();
+                    }
                 })
         }
     
-        const getSubjectsTaken = async(school, URN) => {
+        const getSubjectsTaken = async(school=null, URN=null) => {
             let userIDRes = await getUserID();
             let userID = userIDRes[0][0].UserID;
             await db.query(`SELECT SubjectName, folders.SubjectID FROM subjectsavailable, folders

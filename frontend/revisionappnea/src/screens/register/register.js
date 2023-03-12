@@ -15,6 +15,7 @@ const Register = () => {
     const[selectedSchool, setSelectedschool] = useState("");
     const[showSchool, setShowSchool] = useState('school-button');
     const[placeholder, setPlaceholder] = useState('School Name');
+    const[errMessage, setErrMessage] = useState("");
     const[data, setData] = useState([]);
 
     const navigate = useNavigate();
@@ -43,8 +44,13 @@ const Register = () => {
             password: password,
             school: selectedSchool,
             withCredentials: true
-        }).then(() => {
-            navigate("/login");
+        }).then((res) => {
+            if(res.data === 'ER_DUP_ENTRY'){
+                setErrMessage("Username cannot be used. Sign up with a different username");
+            }
+            else{
+                navigate("/login");
+            }
         }).catch((err) => {
             errHandle(err);
         })
@@ -83,6 +89,9 @@ const Register = () => {
                 <Button variant="primary" type="submit" className="submit-form-button">Register</Button>
                 <div className="loginRedirect">
                     Already Registered? <a href='/login'>Login</a>
+                </div>
+                <div>
+                    {errMessage}
                 </div>
                 </Form>
                 </Card.Body>

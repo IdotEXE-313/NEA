@@ -78,4 +78,21 @@
     text-align: center;
 }
 
+.form {
+    margin: 1rem;
+}
+
+.addDeckButtons{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.addDeckButtons > button {
+    margin: 0.2rem;
+    width: 50%;
+}
+
+
 

@@ -105,10 +105,10 @@ const Home = () => {
                 <h1>Hello {username}</h1>
             </div>
             <div className={styles.schoolTitle}>
-                <h3>Other Decks From {userSchoolInfo.schoolName}</h3>
+                {userSchoolInfo.schoolName === null ? null : <h3>Other Decks From {userSchoolInfo.schoolName}</h3>}
             </div>
             <div className={styles.content}>
-                <InternalDecks internalDecks={internalDecks}/>
+                {userSchoolInfo.schoolName === null ? null : <InternalDecks internalDecks={internalDecks}/>}
             </div>
             <div className={styles.schoolTitle}>
                 <h3>Other Decks From The Public</h3>

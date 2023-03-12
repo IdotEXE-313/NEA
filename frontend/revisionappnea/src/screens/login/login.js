@@ -10,6 +10,7 @@ import './login.css';
 const Login = () => {
     const[username, setUsername] = useState("");
     const[password, setPassword] = useState("");
+    const[errMessage, setErrMessage] = useState("");
     const navigate = useNavigate();
 
     const errHandle = (err) => {
@@ -27,6 +28,9 @@ const Login = () => {
             if(res.data.isLoggedIn){
                 localStorage.setItem("Username", res.data.username);
                 navigate("/home");
+            }
+            else{
+                setErrMessage("Incorrect Credentials. Try Again");
             }
         }).catch((err) => {
             errHandle(err);
@@ -49,6 +53,9 @@ const Login = () => {
                 <Button variant="primary" type="submit" className="submit-form-button">Login</Button>
                 <div className="redirectRegister">
                     Not a user? <a href='/register'>Register</a>
+                </div>
+                <div>
+                    {errMessage}
                 </div>
                 </Form>
                 </Card.Body>

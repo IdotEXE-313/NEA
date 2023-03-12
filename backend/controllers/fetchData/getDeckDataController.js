@@ -4,7 +4,7 @@ exports.getDeckData = async(req, res) => {
 
     const deckID = req.body.deckID;
     
-    await db.query("SELECT DeckName FROM decks WHERE DeckID = ?", [deckID])
+    await db.query("SELECT DeckName, UserID  FROM decks WHERE DeckID = ?", [deckID])
         .then((response) => {
             res.send({data: response});
         })

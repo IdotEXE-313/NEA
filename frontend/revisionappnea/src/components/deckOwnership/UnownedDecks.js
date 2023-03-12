@@ -5,16 +5,28 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Backdrop } from '@mui/material';
 import Card from 'react-bootstrap/Card';
+import axios from 'axios';
 
 
 const UnownedDecks = (props) => {
 
     const navigate = useNavigate();
+    const username = localStorage.getItem("Username");
     const deckID = props.deckID;
     const[addDeck, setAddDeck] = useState(false);
 
-    const handleAddDeck = () => {
-
+    const handleAddDeck = async() => {
+        await axios.post("http://localhost:3001/insert-visible-deck", {
+            withCredentials: true,
+            DeckID: deckID,
+            Username: username
+        })
+        .then((res) => {
+            if(res.data.inserted){
+                setAddDeck(false);
+            }
+            
+        })
     }
 
     return (
@@ -32,8 +44,10 @@ const UnownedDecks = (props) => {
                             <Card.Body>
                                 <Card.Title>Adding Deck {props.deckName}?</Card.Title>
                                 <div className={styles.addDeckButtons}>
-                                    <Button onClick={() => handleAddDeck}>Yes</Button>
-                                    <Button onClick={() => setAddDeck(false)}>No</Button>
+                                    <div className={styles.addDeckButtons}>
+                                        <Button onClick={() => handleAddDeck()}>Yes</Button>
+                                        <Button onClick={() => setAddDeck(false)}>No</Button>
+                                    </div>
                                 </div>
                             </Card.Body>
                         </Card>

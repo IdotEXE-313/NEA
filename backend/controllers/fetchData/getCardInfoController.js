@@ -10,7 +10,7 @@ exports.getCardInfo = async(req, res) => {
                         FROM card
                         WHERE card.CardID = ? `, [cardID])
             .then((response) => {
-                res.send(response);
+                res.send({response, cardID});
             })
             .catch((err) => {
                 console.log(err);

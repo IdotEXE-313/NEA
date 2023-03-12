@@ -34,6 +34,8 @@ const getCardInfo = require("../routes/fetchData/getCardInfo");
 const deleteSubject = require("../routes/deleteData/deleteSubject");
 const updateVisibility = require("../routes/updateData/updateVisibility");
 const deleteDeck = require("../routes/deleteData/deleteDeck");
+const updateCard = require("../routes/updateData/updateCardContent");
+const insertVisibleDeck = require("../routes/insertData/addVisibleDeck");
 
 //Additional imports for communication with the frontend
 app.use(express.urlencoded({extended: true}));
@@ -93,5 +95,7 @@ app.use("/", getCardInfo);
 app.use("/", deleteSubject);
 app.use("/", updateVisibility);
 app.use("/", deleteDeck);
+app.use("/", updateCard);
+app.use("/", insertVisibleDeck);
 
 app.listen(3001, () => console.log("Server is running"));

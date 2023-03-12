@@ -5,10 +5,18 @@ exports.authenticateUser = async(req, res) => {
 
     await db.query("select * from users where username=? and password=?", [username, password])
         .then((response) => {
-            if(response[0][0].Username === username && response[0][0].Password === password){
-                req.session.isAuth = true;
-                req.session.userID = response[0][0].UserID;
-                res.send({isLoggedIn: true, username: username});
+            try {
+                if(response[0][0].Username === username && response[0][0].Password === password){
+                    req.session.isAuth = true;
+                    req.session.userID = response[0][0].UserID;
+                    res.send({isLoggedIn: true, username: username});
+                }
+                else{
+                    res.send({isLoggedIn: false});
+                }
+            }
+            catch{
+                res.send({isLoggedIn: false});
             }
         })
         .catch((err) => {
