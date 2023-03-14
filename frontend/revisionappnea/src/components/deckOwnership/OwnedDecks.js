@@ -57,7 +57,7 @@ const OwnedDecks = (props) => {
                                 <div>
                                     {errMessage}
                                 </div>
-                                <Button onClick={() => {cardFront.length !== 0 || cardBack.length !== 0 ? submitCard() : setErrMessage("Cannot Submit a Blank Field")}}>Add Card</Button>
+                                <Button onClick={() => {cardFront.length !== 0 && cardBack.length !== 0 ? submitCard() : setErrMessage("Cannot Submit a Blank Field")}}>Add Card</Button>
                             </div>
                         </Card>
                         </Backdrop>

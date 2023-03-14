@@ -8,10 +8,12 @@ exports.getCardData = async(req, res) => {
 
     const deckID = req.body.deckID;
 
+    //Adds all fetched items to the stack
     const addToStack = (cardDataObject) => {
         cardDataObject.map((cardData) => {
             stack.Enqueue(cardData);
         });
+        res.send({finished: true});
     }
 
     const getNextReviewDate = async() => {
@@ -20,7 +22,7 @@ exports.getCardData = async(req, res) => {
                         ORDER BY NextReviewDate ASC`,
                         [deckID])
             .then((response) => {
-                res.send({noData: true, nextDate: response[0][0]});
+                res.send({noData: true, nextDate: response[0][0]}); //if this method is called, it implies that there is no data to be reviewed that day. Hence, no data is true
             })
             .catch((err) => {
                 console.log(err);

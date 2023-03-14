@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import NavigationBar from "../../components/navigation/navigationbar";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
@@ -17,18 +17,20 @@ const ReviewStack = () => {
     const[visibilityReveal, setVisiblityReveal] = useState("");
     const[reviewDate, setNextReviewDate] = useState("");
     const[visibilityOptions, setVisibilityOptions] = useState("d-none");
+    const firstCall = useRef(false);
 
     useEffect(() => {
         const getCardData = async() => {
             await axios.post("http://localhost:3001/card-data-stack", {withCredentials: true, deckID: deckID.deckid})
                 .then((res) => {
+                    console.log(res);
                     if(res.data.noData){
                         const date = res.data.nextDate.NextReviewDate;
                         setCardFront("No Cards To Review Today");
                         setNextReviewDate(`Next Review Date: ${date.slice(0,10)}`); //the date string will always be in the format YYYY-MM-DD, so it is safe to splice from index 0 to index 10 and always get a valid date
                         setVisiblityReveal("d-none");
                     }
-                    else{
+                    else if(res.data.finished){
                         dequeueCardStack();
                     }
                 })
@@ -39,8 +41,8 @@ const ReviewStack = () => {
         getCardData();
     }, []);
 
-    const dequeueCardStack = async(grade) => {
-        await axios.get("http://localhost:3001/card-data-stack")
+    const dequeueCardStack = async(grade=null) => {
+            await axios.get("http://localhost:3001/card-data-stack")
             .then((res) => {
                 setVisibilityOptions("d-none");
                 setRevealBack(false);
@@ -64,6 +66,8 @@ const ReviewStack = () => {
             grade: grade,
             cardID: cardID
         });
+        
+        
     }
 
     const handleClick = () => {
