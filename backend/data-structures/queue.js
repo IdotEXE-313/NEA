@@ -57,15 +57,15 @@ class Queue{
     }
 
     dequeue(){
-        //if the queue is empty, then there is nothing to dequeue
+
         if(this.checkIfEmpty()){
             return ({value: null});
         }
-
-        //Set the new front of the queue to the next item in the queue
+        
+              //Set the new front of the queue to the next item in the queue
         let itemToRemove = this.front;
         this.front = this.front.next;
-
+        
         return({value: itemToRemove});
     }
 }

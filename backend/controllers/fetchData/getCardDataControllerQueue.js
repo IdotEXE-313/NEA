@@ -11,15 +11,14 @@ exports.queueCards = async(req, res) => {
      const addToQueue = (cardDataObject) => {
         cardDataObject.map((cardData) => {
             queue.enqueue(cardData);
-        })
+        });
+        res.send({finished: true});
     }
 
     await db.query("SELECT CardID, DeckID, Priority, CardFront, CardBack FROM card WHERE card.DeckID = ? AND card.Priority IS NOT NULL", [deckID])
     .then((response) => {
-        console.log(response);
         //  receives response in form {CardFront:, CardBack:}
         addToQueue(response[0]);
-        res.sendStatus(200);
     })
     .catch((err) => {
         console.log(err);
@@ -28,8 +27,13 @@ exports.queueCards = async(req, res) => {
 
 }
 
-exports.getCardQueue = async(req, res) => {
-    let cardObject = queue.dequeue();
-    let value = cardObject.value;
-    value !== null ? res.send({cardData: cardObject.value}) : res.send(null);
+exports.getCardQueue = (req, res) => {
+    try{
+        const cardObject = queue.dequeue();
+        res.send({cardData: cardObject.value});
+        
+    }
+    catch(err){
+        console.log(err);
+    }
 }

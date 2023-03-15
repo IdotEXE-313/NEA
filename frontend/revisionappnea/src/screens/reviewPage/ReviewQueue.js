@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import NavigationBar from "../../components/navigation/navigationbar";
 import axios from "axios";
@@ -9,13 +9,13 @@ import Button from 'react-bootstrap/Button';
 const ReviewQueue = () => {
 
     const deckID = useParams();
-    const[cardData, setCardData] = useState({});
+    const[cardID, setCardID] = useState("");
     const[cardBack, setCardBack] = useState("");
     const[cardFront, setCardFront] = useState("");
     const[revealBack, setRevealBack] = useState(false);
+    const[priority, setPriority] = useState(null);
     const[visibilityReveal, setVisiblityReveal] = useState("");
     const[visibilityOptions, setVisibilityOptions] = useState("d-none");
-    const[renderData, setRenderData] = useState(false);
 
 
     useEffect(() => {
@@ -24,47 +24,46 @@ const ReviewQueue = () => {
                 withCredentials: true,
                 deckID: deckID.deckid
             })
-            .then(() => {
-                dequeueCard(); //we dequeuea card here to get out first card off the created queue
+            .then((res) => {
+                dequeueCard();
             })
             .catch((err) => {
                 console.log(err);
             })
         }
         queueCards();
-    }, [renderData]);
+    }, []);
 
 
     const dequeueCard = async () => {
         await axios.get("http://localhost:3001/card-data-queue")
             .then((res) => {
-                let cardDataRes = res.data.cardData;
-                setRenderData(true);
-                try{
-                    setCardData(cardDataRes.value);
-                    updateCardValues();
-                    showCardFront();
-                }
-                catch{
+                if(res.data.cardData == null){
                     endCardUpdate();
                 }
+                else{
+                    let cardDataRes = res.data.cardData.value;
+                    setPriority(cardDataRes.Priority);
+                    setCardFront(cardDataRes.CardFront);
+                    setCardBack(cardDataRes.CardBack);
+                    setCardID(cardDataRes.CardID);
+                    showCardFront();
+                }
+                console.log(res);
+                
+            })
+            .catch((err) => {
+                console.log(err);
+            })
             
-        });
-        
-    }
+        };
     
-
-    const updateCardValues = () => {
-        setCardBack(cardData.CardBack); //separate variables since their state needs to differ from their initial values
-        setCardFront(cardData.CardFront);
-    }
 
     const endCardUpdate = () => {
         setCardFront("Queue Finished");
         setVisiblityReveal("d-none");
         setRevealBack(false);
         setVisibilityOptions("d-none");
-        setRenderData(false);
     }
 
     const updateCardPriority = async (newPriority) => {
@@ -72,8 +71,8 @@ const ReviewQueue = () => {
         await axios.post("http://localhost:3001/update-card-priority", {
             withCredentials: true,
             priority: newPriority,
-            deckID: cardData.DeckID,
-            cardID: cardData.CardID
+            deckID: deckID.deckid,
+            cardID: cardID
         });
     }
     
@@ -95,7 +94,7 @@ const ReviewQueue = () => {
         <>
             <NavigationBar />
             <div className={styles.priorityDiv}>
-                Priority: {cardData.Priority}
+                Priority: {priority}
             </div>
             <div className={styles.cardContainer}>
                 <Card className={styles.reviewCard}>
