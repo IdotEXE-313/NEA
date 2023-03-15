@@ -1,10 +1,10 @@
 class SuperMemo{
     constructor(intervalNum, repitition, efactor, grade){
         //when following the psuedocode, these values, except for grade, are the previous values. Updated values will be returned and added to the db
-        this.interval = intervalNum; 
-        this.repitition = repitition;
-        this.efactor = efactor;
-        this.grade = grade;
+        this.interval = intervalNum; //the interval of days
+        this.repitition = repitition; //the number of times the card has been reviewed
+        this.efactor = efactor; //ease-factor. Plays a role in determining the interval
+        this.grade = grade; //grade from 0 - 5
     }
 
     superMemo(){

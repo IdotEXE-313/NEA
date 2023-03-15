@@ -15,6 +15,8 @@ const Subjects = () => {
     const[userID, setUserID] = useState();
     const navigate = useNavigate();
     const[deleteSubject, setDeleteSubject] = useState(false);
+    const[subjectName, setSubjectName] = useState("");
+    const[folderID, setFolderID] = useState("");
 
     useEffect(() => {
         const getSubjectsTaken = async () => {
@@ -44,6 +46,12 @@ const Subjects = () => {
         })
     }
 
+    const handleClick = (SubjectName, FolderID) => {
+        setDeleteSubject(true);
+        setSubjectName(SubjectName);
+        setFolderID(FolderID);
+    }
+
     return(
         <>
             <NavigationBar />
@@ -54,27 +62,27 @@ const Subjects = () => {
                 {subjects.map((subject) => {
                     return(
                         <Card className={styles.subjectCard}>
-                            <CloseButton onClick={() => setDeleteSubject(true)} className={styles.subjectDelete} />
+                            <CloseButton onClick={(e) => handleClick(subject.SubjectName, subject.FolderID)} className={styles.subjectDelete} />
                             <Card.Body>
                                 <Card.Title>{subject.SubjectName}</Card.Title>
                             </Card.Body>
                             <Button onClick={(() => navigate(`/subjects/${subject.FolderID}`))}>Decks</Button>
-                            <Backdrop open={deleteSubject} sx={{zIndex: 1}}>
-                                <Card>
-                                    <Card.Body>
-                                        <Card.Title>Are you sure you want to delete {subject.SubjectName}?</Card.Title>
-                                        <Card.Text>All decks and cards will be lost</Card.Text>
-                                        <div className={styles.selectButton}>
-                                            <Button onClick={() => handleDelete(subject.FolderID, userID)}>Yes</Button>
-                                            <Button onClick={() => setDeleteSubject(false)}>No</Button>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </Backdrop>
                         </Card>
                         
                     )
                 })}
+                <Backdrop open={deleteSubject} sx={{zIndex: 1}}>
+                    <Card>
+                        <Card.Body>
+                            <Card.Title>Are you sure you want to delete {subjectName}?</Card.Title>
+                            <Card.Text>All decks and cards will be lost</Card.Text>
+                            <div className={styles.selectButton}>
+                                <Button onClick={() => handleDelete(folderID, userID)}>Yes</Button>
+                                <Button onClick={() => setDeleteSubject(false)}>No</Button>
+                            </div>
+                        </Card.Body>
+                    </Card>
+                </Backdrop>
             </div>
         </>
     )
