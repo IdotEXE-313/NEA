@@ -1,17 +1,27 @@
-const express = require("express");
 const db = require("../../database/connection");
+const bcrypt = require("bcrypt");
 
 exports.registerUser = async(req, res) => {
     const {username, password, school} = req.body;
 
+    bcrypt.hash(password, 12, (async(err, hash) => {
+        if(err){
+            console.log(err);
+            res.send({err: true});
+        }
+        else{
+            await insertUser(hash);
+        }
+    }));
+
     
-    const insertUser = async() => {
-        await db.query("INSERT INTO users (username, password, schoolid) values(?, ?, ?)", [username, password, school || null])
-            .then((res) => {
-                res.sendStatus("Inserted");
+    const insertUser = async(hashedPassword) => {
+        await db.query("INSERT INTO users (username, password, schoolid) values(?, ?, ?)", [username, hashedPassword, school || null])
+            .then((response) => {
+                res.send({isRegistered: true});
             })
             .catch((err) => {
-                res.send(err.code);
+                console.log(err);
             })
     }
 
