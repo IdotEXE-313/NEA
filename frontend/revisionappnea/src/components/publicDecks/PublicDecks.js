@@ -7,6 +7,14 @@ const PublicDecks = (props) => {
 
     const navigate = useNavigate();
 
+     /*
+    Props receives public decks object
+    Public deck object comes in the format {data: {0: DeckName, DeckID, FolderID, SubjectName, 1: ...}}
+    Firstly, iterating through the data object (values are 0, 1, 2...)
+    Then, iterating through the values for each index (Deckname, DeckID...)
+    This renders all the public decks
+    */
+
     return (
         <>
             {Object.values(props.publicDecks).map((value) => {

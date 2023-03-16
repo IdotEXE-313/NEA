@@ -5,8 +5,16 @@ import Button from 'react-bootstrap/Button';
 
 const InternalDecks = (props) => {
 
+
     const navigate = useNavigate();
 
+    /*
+    Props receives internal decks object
+    Internal deck object comes in the format {data: {0: DeckName, DeckID, FolderID, SubjectName, 1: ...}}
+    Firstly, iterating through the data object (values are 0, 1, 2...)
+    Then, iterating through the values for each index (Deckname, DeckID...)
+    This renders all the internal decks
+    */
     return (
         <>
             {Object.values(props.internalDecks).map((value) => {

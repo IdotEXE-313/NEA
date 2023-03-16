@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 exports.authenticateUser = async(req, res) => {
     const{username, password} = req.body;
 
+    //get the hashed password, and then proceed to login method with the password and user id
     const getHashedPassword = async() => {
         await db.query(`SELECT UserID, password FROM users
                         WHERE username=?`,
@@ -20,8 +21,10 @@ exports.authenticateUser = async(req, res) => {
 
     const login = async(hashedPassword, userID) => {
 
+        //compare the hashed password to the plaintext password parsed in
         bcrypt.compare(password, hashedPassword, ((err, result) => {
             if(result){
+                //if the credentials are valid, add isAuth and user ID to session cookie
                 req.session.isAuth = true;
                 req.session.userID = userID;
                 res.send({isLoggedIn: true, username: username});
@@ -34,23 +37,4 @@ exports.authenticateUser = async(req, res) => {
 
     await getHashedPassword();
 
-    // await db.query("select * from users where username=? and password=?", [username, password])
-    //     .then((response) => {
-    //         try {
-    //             if(response[0][0].Username === username && response[0][0].Password === password){
-    //                 req.session.isAuth = true;
-    //                 req.session.userID = response[0][0].UserID;
-    //                 res.send({isLoggedIn: true, username: username});
-    //             }
-    //             else{
-    //                 res.send({isLoggedIn: false});
-    //             }
-    //         }
-    //         catch{
-    //             res.send({isLoggedIn: false});
-    //         }
-    //     })
-    //     .catch((err) => {
-    //         console.log(err);
-    //     })
 }

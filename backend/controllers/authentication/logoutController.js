@@ -1,5 +1,3 @@
-const db = require("../../database/connection");
-
 exports.logoutUser = async(req, res) => {
     await req.session.destroy((err) => {
         if(!err){

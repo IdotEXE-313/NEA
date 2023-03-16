@@ -18,8 +18,9 @@ const OwnedDecks = (props) => {
     const[cardBack, setCardBack] = useState("");
     const[errMessage, setErrMessage] = useState("");
 
+
     const submitCard = async () => {
-        setAddCard(false);
+        setAddCard(false); //closes the 'add card' overlay
         await axios.post("http://localhost:3001/add-card", {
             withCredentials: true,
             cardFront: cardFront,
@@ -57,6 +58,7 @@ const OwnedDecks = (props) => {
                                 <div>
                                     {errMessage}
                                 </div>
+                                {/*Ensures that the front and back of the card cannot be blank */}
                                 <Button onClick={() => {cardFront.length !== 0 && cardBack.length !== 0 ? submitCard() : setErrMessage("Cannot Submit a Blank Field")}}>Add Card</Button>
                             </div>
                         </Card>

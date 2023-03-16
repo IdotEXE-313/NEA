@@ -21,18 +21,20 @@ const Deck = () => {
     const[errMessage, setErrMessage] = useState("");
     const isDirect = direct.get("direct");
 
+
+    //run when the component mounts
     useEffect(() => {
         const getDeckData = async () => {
             await axios.post("http://localhost:3001/deck-data", {withCredentials: true, deckID: deckID.deckid})
                 .then((res) => {
-                    setDeckName(res.data.data[0][0].DeckName);
+                    setDeckName(res.data.data[0][0].DeckName); 
                 })
         }
         getDeckData();
     }, []);
 
     const handleDeckVisibilityRequest = async() => {
-        if(!currentVisibility.length > 0){
+        if(!currentVisibility.length > 0){ //if no visibility is selected, then ensure no request is sent
             setErrMessage("Must Select A Visibility");
             return;
         }
@@ -44,8 +46,8 @@ const Deck = () => {
         .then((res) => {
             const isUpdated = res.data.updated;
             if(isUpdated){
-                setEditDeckVisibility(false);
-                setErrMessage("");
+                setEditDeckVisibility(false); //closes the 'edit visibility' overlay
+                setErrMessage(""); //resets error message state
             }
             else{
                 setErrMessage("Cannot set Visibility to Current Visibility");
@@ -83,6 +85,7 @@ const Deck = () => {
                     </Card>
                 </Backdrop>
             </div>
+            {/*If the user comes from the home page, don't allow them to edit the public / internal deck. Instead, they must save their own copy. If they come from the home page, they can view the cards in the deck*/}
             {isDirect === "false" ? <UnownedDecks deckID={deckID.deckid} deckName={deckName} /> : <OwnedDecks deckID={deckID.deckid}/>}
         </>
     )

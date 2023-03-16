@@ -31,7 +31,7 @@ const ReviewStack = () => {
                         setVisiblityReveal("d-none");
                     }
                     else if(res.data.finished){
-                        dequeueCardStack();
+                        dequeueCardStack(); //dequeue the first card on the queue
                     }
                 })
                 .catch((err) => {
@@ -42,12 +42,14 @@ const ReviewStack = () => {
     }, []);
 
     const dequeueCardStack = async(grade=null) => {
+            //takes a card off the queue. Values will therefore be updated here
             await axios.get("http://localhost:3001/card-data-stack")
             .then((res) => {
-                setVisibilityOptions("d-none");
+                //if response, then set the necessary values to review the card
+                setVisibilityOptions("d-none"); 
                 setRevealBack(false);
                 setVisiblityReveal("");
-                if(res.data.cardData !== null){
+                if(res.data.cardData !== null){ 
                     setCardFront(res.data.cardData.CardFront);
                     setCardBack(res.data.cardData.CardBack);
                     setCardID(res.data.cardData.CardID);
@@ -61,6 +63,7 @@ const ReviewStack = () => {
                 console.log(err);
             })
 
+        //updates the next review date (based off the grade)
         await axios.post("http://localhost:3001/update-date", {
             withCredentials: true,
             grade: grade,
@@ -70,10 +73,11 @@ const ReviewStack = () => {
         
     }
 
+    //enables you to see the back of the card
     const handleClick = () => {
         setRevealBack(true);
-        setVisiblityReveal("d-none");
-        setVisibilityOptions("");
+        setVisiblityReveal("d-none"); //hides the 'reveal back' button
+        setVisibilityOptions(""); //reveals the 0 - 5 scale
     }
 
     return(

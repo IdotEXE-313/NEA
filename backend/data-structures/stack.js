@@ -13,7 +13,7 @@ class Stack{
 
     checkIfEmpty = () => {return this.size === 0};
 
-    Enqueue(card){
+    Push(card){
         if(this.size === 0){
             this.head = {value: card};
             this.size++;
@@ -26,7 +26,7 @@ class Stack{
         this.head = node;
 
     }
-    Dequeue(){
+    Pop(){
        if(!this.checkIfEmpty()){
         let removedItem = this.head; //get the current top of the stack
         this.head = this.head.next; //set the current top to the next element

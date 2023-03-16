@@ -18,6 +18,7 @@ const ReviewQueue = () => {
     const[visibilityOptions, setVisibilityOptions] = useState("d-none");
 
 
+
     useEffect(() => {
         const queueCards = async() => {
             await axios.post("http://localhost:3001/card-data-queue", { //adds cards onto the queue
@@ -38,11 +39,11 @@ const ReviewQueue = () => {
     const dequeueCard = async () => {
         await axios.get("http://localhost:3001/card-data-queue")
             .then((res) => {
-                if(res.data.cardData == null){
+                if(res.data.cardData == null){ //if the queue has ended, display the end of queue screen
                     endCardUpdate();
                 }
                 else{
-                    let cardDataRes = res.data.cardData.value;
+                    let cardDataRes = res.data.cardData.value; //display all the necessary values to review the card
                     setPriority(cardDataRes.Priority);
                     setCardFront(cardDataRes.CardFront);
                     setCardBack(cardDataRes.CardBack);
@@ -78,9 +79,9 @@ const ReviewQueue = () => {
     
 
     const showCardFront = () => {
-        setVisibilityOptions("d-none");
+        setVisibilityOptions("d-none"); //short for display:none
         setRevealBack(false);
-        setVisiblityReveal("");
+        setVisiblityReveal(""); //when the class name is empty, this will render (since d-none hides it). 
     }
 
 

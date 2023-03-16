@@ -7,6 +7,7 @@ exports.updateDate = async(req, res) => {
     const date = new Date(dateObject.getFullYear(), dateObject.getMonth(), dateObject.getDate());
 
     const fetchData = async() => {
+        //need these values for the supermemo algorithm to calculate the next review date
         await db.query("SELECT intervalNum, repitition, efactor FROM card WHERE card.cardID = ?", [cardID])
         .then((response) => {
             const data = response[0][0];
@@ -18,10 +19,11 @@ exports.updateDate = async(req, res) => {
     }
 
     const updateDate = async(_interval, _rep, _efactor) => {
-        const supermemo = new SuperMemo(_interval, _rep, _efactor, grade);
-        const {interval, repetition, efactor} = supermemo.superMemo();
-        date.setDate(date.getDate() + interval);
+        const supermemo = new SuperMemo(_interval, _rep, _efactor, grade); //pass in the values required
+        const {interval, repetition, efactor} = supermemo.superMemo(); //run supermemo on the values passed in and obtain the new values
+        date.setDate(date.getDate() + interval); //get the current date (created earlier) and add on the interval to get the new date
 
+        //query for updating the next review date
         await db.query("UPDATE card SET NextReviewDate = ?, intervalNum = ?, repitition = ?, efactor = ? WHERE card.cardID = ?", [date, interval, repetition, efactor, cardID])
             .then((response) => {
                 console.log(response);

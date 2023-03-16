@@ -18,10 +18,10 @@ const Contact = () => {
         })
         .then((res) => {
             if(res.data.isSent){
-                setSendSuccess("Message Sent");
+                setSendSuccess("Message Sent"); //changes the button's text's state if the message is sent 
             }
             else{
-                setLengthWarning("Message must be between 20 and 160 characters long");
+                setLengthWarning("Message must be between 20 and 160 characters long"); //changes the error message's state if the message sending fails
             }
         })
         .catch((err) => {

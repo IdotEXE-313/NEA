@@ -16,11 +16,14 @@ const AddSubject = () => {
     const username = localStorage.getItem("Username");
 
 
+    //opens the 'add subject' overlay and saves the state of the target subject name (to display on the overlay)
     const handleOpen = (event) => {
         setOpen(true);
         setSubject(event.target.value);
 
     }
+
+    //closes 'add subject' overlay and resets state of the subject name
     const handleClose = () => {
         setOpen(false);
         setAddSubjectStatus("");
@@ -37,7 +40,7 @@ const AddSubject = () => {
 
             //subject has been successfully added, so we close the overlay
             if(isInserted){
-                handleClose();
+                handleClose(); 
             }
             else{
                 setAddSubjectStatus("Cannot Add The Same Subject More Than Once");
@@ -49,8 +52,10 @@ const AddSubject = () => {
 
     }
 
+    //run this when this component mounts
     useEffect(() => {
         const fetchSubjects = async () => {
+            //gets all subjects available
             await axios.get("http://localhost:3001/get-subjects", {withCredentials: true})
                 .then((res) => {
                     setSubjects(res.data.subjectData[0]);

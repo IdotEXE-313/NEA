@@ -23,7 +23,7 @@ const UnownedDecks = (props) => {
         })
         .then((res) => {
             if(res.data.inserted){
-                setAddDeck(false);
+                setAddDeck(false); //if the deck is added, then close the Add Deck overlay
             }
             
         })
@@ -46,7 +46,7 @@ const UnownedDecks = (props) => {
                                 <div className={styles.addDeckButtons}>
                                     <div className={styles.addDeckButtons}>
                                         <Button onClick={() => handleAddDeck()}>Yes</Button>
-                                        <Button onClick={() => setAddDeck(false)}>No</Button>
+                                        <Button onClick={() => setAddDeck(false)}>No</Button> {/*Closes the 'Add Deck' overlay */}
                                     </div>
                                 </div>
                             </Card.Body>

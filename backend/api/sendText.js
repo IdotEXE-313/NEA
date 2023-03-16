@@ -23,6 +23,7 @@ exports.sendText = async(req, res) => {
         })
     }
 
+    //checking if the message is blank or less than 20 or more than 160 characters
     if(typeof(message) != "undefined"){
         if(!(message.length < 20 || message.length > 160)){
             await sendText();

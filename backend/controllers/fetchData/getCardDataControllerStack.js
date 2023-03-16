@@ -11,7 +11,7 @@ exports.getCardData = async(req, res) => {
     //Adds all fetched items to the stack
     const addToStack = (cardDataObject) => {
         cardDataObject.map((cardData) => {
-            stack.Enqueue(cardData);
+            stack.Push(cardData);
         });
         res.send({finished: true});
     }
@@ -29,6 +29,7 @@ exports.getCardData = async(req, res) => {
             })
     }
 
+    //fetch all cards with a next review date that is either today or has passed
     await db.query(`SELECT DATE_FORMAT(card.NextReviewDate, ?), CardID, CardFront, CardBack FROM card, decks 
                     WHERE decks.DeckID = ? AND card.DeckID = ?
                     AND DATE(card.NextReviewDate) <= CURDATE()`, ['%Y-%m-%d', deckID, deckID])
@@ -48,6 +49,6 @@ exports.getCardData = async(req, res) => {
 }
 
 exports.fetchCard = async (req, res) => {
-    let cardObject = stack.Dequeue();
+    let cardObject = stack.Pop();
     res.send({cardData: cardObject.value});
 }

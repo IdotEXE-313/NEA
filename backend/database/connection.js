@@ -1,5 +1,6 @@
 const mysql = require("mysql2/promise");
-require("dotenv").config();
+require("dotenv").config(); //allows access to environment variables such as password
+
 
 const options = ({
     host: 'localhost',

@@ -20,11 +20,9 @@ const Register = () => {
 
     const navigate = useNavigate();
 
-    const errHandle = (err) => {
-
-    }
 
 
+    //whenever the state of 'schol' changes, run this method to get suggested schools
     useEffect(() => {
         const getSchoolMatches = async () => {
             const response = await axios.post("http://localhost:3001/schools", {schoolName: school, withCredentials: true});
@@ -52,7 +50,7 @@ const Register = () => {
                 navigate("/login");
             }
         }).catch((err) => {
-            errHandle(err);
+            console.log(err);
         })
 
     }
@@ -79,6 +77,7 @@ const Register = () => {
                 <Form.Group className="mb-3" controlID="formBasicSchool">
                     <Form.Control type="search" placeholder={placeholder} onChange={(e) => setSchool(e.target.value)}/>
                     <div className='mb-3'>
+                        {/*For every change in the state of 'school', render suggested schools*/}
                         {data.map((data) => {
                             return( <a href="#" className={showSchool} onClick={() => handleClick(data.URN, data.EstablishmentName)} key={data.URN}>
                                 {data.EstablishmentName}

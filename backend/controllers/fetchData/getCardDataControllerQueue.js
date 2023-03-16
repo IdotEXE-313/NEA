@@ -4,10 +4,12 @@ let queue;
 
 exports.queueCards = async(req, res) => {
 
-    queue = new Queue();
-
     const deckID = req.body.deckID;
 
+    queue = new Queue();
+
+
+    //for every card fetched, add it to the queue
      const addToQueue = (cardDataObject) => {
         cardDataObject.map((cardData) => {
             queue.enqueue(cardData);
@@ -28,6 +30,7 @@ exports.queueCards = async(req, res) => {
 }
 
 exports.getCardQueue = (req, res) => {
+    //try and catch needed due to error of queue.dequeue sometimes not being recognised. This prevents the server from crashing
     try{
         const cardObject = queue.dequeue();
         res.send({cardData: cardObject.value});

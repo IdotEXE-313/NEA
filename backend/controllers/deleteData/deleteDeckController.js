@@ -4,6 +4,7 @@ exports.deleteDeck = async(req, res) => {
     const{FolderID, DeckID} = req.body;
 
 
+
     const deleteDeck = async() => {
         await db.query(`DELETE FROM card
                         WHERE card.DeckID = ?;
@@ -12,6 +13,7 @@ exports.deleteDeck = async(req, res) => {
                         AND decks.FolderID = ?`,
                         [DeckID, DeckID, FolderID])
             .then((response) => {
+                //only send a response if a deck has been deleted
                 if(response[0][0].affectedRows > 0){
                     res.send({delete: true})
                 }

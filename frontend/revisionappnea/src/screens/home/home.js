@@ -42,6 +42,7 @@ const Home = () => {
         
     }, []);
 
+    //run when the state of 'userSubjectInfo' changes
     useEffect(() => {
 
         const getInternalDecks = async(SubjectID) => {
@@ -52,7 +53,7 @@ const Home = () => {
                 SchoolID: userSchoolInfo.schoolID
             })
             .then((response) => {
-                setInternalDecks((prevState) => {
+                setInternalDecks((prevState) => { //if there are internal decks for the given subject ID, update the state of 'Internal Decks' by inserting the new state with the previous state
                     const data = response.data[0];
                     if(data.length > 0){
                         return {...prevState, data}
@@ -71,7 +72,7 @@ const Home = () => {
             })
             .then((response) => {
                 setPublicDecks((prevState) => {
-                    const data = response.data[0];
+                    const data = response.data[0]; //same approach as internal decks
                     if(data.length > 0){
                         return {...prevState, data}
                     }
@@ -80,7 +81,9 @@ const Home = () => {
             })
         }
 
+        //ensures this only runs once, not twice (on mount and when userSubjectInfo changes)
         if(finished.current){
+            //invokes the method getInternalDecks for each subject that the user takes
             const invokeGetInternalDecks = async () => {
                 Object.keys(userSubjectInfo).map(async(key) => {
                     await getInternalDecks(userSubjectInfo[key].SubjectID);
@@ -88,6 +91,7 @@ const Home = () => {
             }
 
             const invokeGetPublicDecks = async() => {
+                //invokes the method getPublicDecks for each subject the user takes
                 Object.keys(userSubjectInfo).map(async(key) => {
                     await getPublicDecks(userSubjectInfo[key].SubjectID);
                 })

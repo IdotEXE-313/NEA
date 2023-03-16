@@ -16,6 +16,7 @@ import Contact from "./screens/contact/Contact";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
+  //all the routes for each component
   return (
     <>
       <Routes>

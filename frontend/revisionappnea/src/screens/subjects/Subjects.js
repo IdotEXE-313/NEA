@@ -18,6 +18,7 @@ const Subjects = () => {
     const[subjectName, setSubjectName] = useState("");
     const[folderID, setFolderID] = useState("");
 
+    //runs when the component mounts
     useEffect(() => {
         const getSubjectsTaken = async () => {
             await axios.get("http://localhost:3001/subjects-taken", {withCredentials: true})
@@ -42,10 +43,10 @@ const Subjects = () => {
         })
         .then((res) => {
             window.location.reload(false);
-            console.log(res);
         })
     }
 
+    //opens the 'delete subject' overlay
     const handleClick = (SubjectName, FolderID) => {
         setDeleteSubject(true);
         setSubjectName(SubjectName);
