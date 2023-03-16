@@ -25,6 +25,7 @@ const SubjectDecks = () => {
 
     const navigate = useNavigate();
 
+    //run when the component mounts
     useEffect(() => {
         const getDeckData = async () => {
             await axios.post("http://localhost:3001/get-decks", {withCredentials: true, folderID: folderID.folderid})
@@ -38,6 +39,7 @@ const SubjectDecks = () => {
         getDeckData();
     }, [])  
 
+    //handles the submissions of a new deck
     const handleSubmit = async () => {
         const deckID = Math.floor(Math.random() + Date.now());
         await axios.post("http://localhost:3001/add-deck", {
@@ -51,8 +53,8 @@ const SubjectDecks = () => {
         .then((res) => {
             console.log(res);
             if(res.data.inserted){
-                window.location.reload(false);
-                setAddDeck(false);
+                window.location.reload(false); //refresh page if the insertion is successful
+                setAddDeck(false); //closes 'add deck' overlay
             }
             else{
                 setErrMessage("Cannot have a blank deck name");
@@ -69,8 +71,8 @@ const SubjectDecks = () => {
         .then((res) => {
             console.log(res);
             if(res.data.delete){
-                setDeleteDeck(false);
-                window.location.reload(false);
+                setDeleteDeck(false); //closes 'delete deck' overlay
+                window.location.reload(false); //refreshes page
             }
             else{
                 setErrMessage("Try again later");
@@ -78,16 +80,19 @@ const SubjectDecks = () => {
         })
     }
 
+    //parses in value "Public", "Private" or "Internal"
     const handleClick = (value) => {
         setVisibility(value);
         setChangeVariant(value);
     }
 
+    //opens the 'add deck' overlay
     const handleOpen = () => {
         setAddDeck(true);
         setChangeVariant("");
     }
 
+    //closes the 'add deck' overlay
     const handleClose = () => {
         setErrMessage("");
         setAddDeck(false);

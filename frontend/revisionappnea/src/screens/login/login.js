@@ -13,12 +13,8 @@ const Login = () => {
     const[errMessage, setErrMessage] = useState("");
     const navigate = useNavigate();
 
-    const errHandle = (err) => {
-
-    }
-
     const login = async (event) => {
-        event.preventDefault(); 
+        event.preventDefault(); //prevents refreshing the page when submitted
 
         await axios.post('http://localhost:3001/login', {
             username: username,
@@ -33,7 +29,7 @@ const Login = () => {
                 setErrMessage("Incorrect Credentials. Try Again");
             }
         }).catch((err) => {
-            errHandle(err);
+            console.log(err);
         })
     }
 

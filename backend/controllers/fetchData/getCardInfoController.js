@@ -5,6 +5,7 @@ exports.getCardInfo = async(req, res) => {
 
     const cardID = req.body.CardID;
 
+    
     const getCardInfo = async() => {
         await db.query(`SELECT CardFront, CardBack
                         FROM card

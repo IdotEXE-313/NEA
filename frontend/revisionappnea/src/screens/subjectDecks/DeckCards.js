@@ -22,6 +22,7 @@ const DeckCards = () => {
     const[errMessage, setErrMessage] = useState("");
     const[cardBack, setCardBack] = useState("");
 
+    //gets all card data when the component mounts
     useEffect(() => {
         const getCardData = async() => {
             await axios.post("http://localhost:3001/card-data", {
@@ -38,20 +39,21 @@ const DeckCards = () => {
         getCardData();
     }, [])
 
+
     const handleDelete = async(CardID) => {
         await axios.post("http://localhost:3001/delete-card",{
             withCredentials: true,
             cardID: CardID
         })
         .then((res) => {
-            window.location.reload(false);
+            window.location.reload(false); //refreshes the page if the deletion of the card is successful
         })
     }
 
     const handleEditRequest = async(CardID) => {
         
         setCardID(CardID);
-        setEditCard(true);
+        setEditCard(true); //opens 'edit card' overlay
     }
 
     const submitEdit = async() => {
@@ -63,8 +65,8 @@ const DeckCards = () => {
         })
         .then((res) => {
             if(res.data.edited){
-                setEditCard(false);
-                window.location.reload(false);
+                setEditCard(false); //closes 'edit card' overlay
+                window.location.reload(false); //refreshes page
             }
             else{
                 setErrMessage("Ensure your edit is between 0 and 255 characters and try again");
